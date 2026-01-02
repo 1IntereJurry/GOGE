@@ -130,7 +130,7 @@ namespace GOGE.Systems
             {
                 player.CurrentHP = Math.Min(player.MaxHP, player.CurrentHP + 30);
                 inventory.Remove(potion);
-                Console.WriteLine(Localization.T("Inventory.Added")); // not ideal formatted; inventory.Remove already prints
+                Console.WriteLine(Localization.T("Inventory.Added"));
                 Console.WriteLine(Localization.T("Character.Created"));
                 Pause();
             }
@@ -150,7 +150,7 @@ namespace GOGE.Systems
                 return FightOutcome.Defeat;
             }
 
-            Console.WriteLine(Localization.TF("Combat.EnemyDefeat", enemy.Name)); // message EnemyDefeat
+            Console.WriteLine(Localization.TF("Combat.EnemyDefeat", enemy.Name)); 
 
             player.AddXP(enemy.XPReward);
             player.Gold += enemy.GoldReward;

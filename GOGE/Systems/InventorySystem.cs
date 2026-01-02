@@ -26,11 +26,11 @@ namespace GOGE.Systems
             {
                 potion.ApplyEffect(character);
                 Remove(item);
-                Console.WriteLine(Localization.TF("Character.Equipped", character.Name, item.Name));
+                Console.WriteLine(Localization.TF("Inventory.PotionUsed", character.Name));
             }
             else
             {
-                Console.WriteLine($"{item.Name} cannot be used directly."); // outsource to localization
+                Console.WriteLine("Item.UseFailed", item.Name); // outsource to localization
             }
         }
 

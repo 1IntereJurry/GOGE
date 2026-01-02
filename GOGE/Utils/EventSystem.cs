@@ -15,18 +15,18 @@ namespace GOGE.Utils
             if (roll <= 30)
             {
                 // Loot-Event
-                Console.WriteLine(Localization.TF("Event.SmallGoldChest", 10)); //SmallGoldChest
+                Console.WriteLine(Localization.TF("Event.SmallGoldChest", 10));
                 player.Gold += 10;
             }
             else if (roll <= 50)
             {
                 // Story-Event
-                Console.WriteLine(Localization.T("Event.DistantHowl")); // DistantHowl
+                Console.WriteLine(Localization.T("Event.DistantHowl"));
             }
             else if (roll <= 70)
             {
                 // Risiko-Event
-                Console.WriteLine(Localization.T("Event.SparklingPuddle.Prompt")); // SparklingPuddle
+                Console.WriteLine(Localization.T("Event.SparklingPuddle.Prompt"));
                 Console.WriteLine("\n" + Localization.T("Event.Choice.Yes"));
                 Console.WriteLine(Localization.T("Event.Choice.No"));
 

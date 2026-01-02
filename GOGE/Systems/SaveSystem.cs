@@ -1,4 +1,5 @@
 ﻿using GOGE.Models;
+using GOGE.Utils;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -51,7 +52,7 @@ namespace GOGE.Systems
             string json = JsonSerializer.Serialize(data, options);
             File.WriteAllText(path, json);
 
-            Console.WriteLine($"Game saved as:\n{safeName}.json"); // outsource localization
+            Console.WriteLine(Localization.TF("Save.Saved", safeName));
         }
 
         // ---------------------------------------------------------
@@ -63,7 +64,7 @@ namespace GOGE.Systems
 
             if (!File.Exists(path))
             {
-                Console.WriteLine("This save file does not exist."); // outsource localization
+                Console.WriteLine(Localization.T("Safe.NotFound"));
                 return null;
             }
 
@@ -81,13 +82,13 @@ namespace GOGE.Systems
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error deserializing save file: {ex.Message}"); // outsource localization
+                Console.WriteLine( Localization.TF("Load.ErrorDeserializing", ex.Message));
                 return null;
             }
 
             if (data == null)
             {
-                Console.WriteLine("Error loading save file."); // outsource localization
+                Console.WriteLine(Localization.T("Load.ErrorLoading"));
                 return null;
             }
 
@@ -98,7 +99,7 @@ namespace GOGE.Systems
             data.Inventory ??= new InventorySystem();
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"\nSave file '{fileName}' loaded!"); // outsource localization
+            Console.WriteLine(Localization.TF("Save.Loaded", fileName)); 
             Console.ResetColor();
 
 
