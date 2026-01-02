@@ -1,7 +1,6 @@
-﻿using System;
-using GOGE.Models;
-using GOGE.Utils;
+﻿using GOGE.Models;
 using GOGE.Systems;
+using GOGE.Utils;
 
 namespace GOGE
 {

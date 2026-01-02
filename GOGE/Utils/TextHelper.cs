@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-
-namespace GOGE.Utils
+﻿namespace GOGE.Utils
 {
     class TextHelper
     {

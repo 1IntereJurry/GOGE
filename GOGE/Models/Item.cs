@@ -1,5 +1,3 @@
-using GOGE.Models;
-
 namespace GOGE.Models
 {
     public abstract class Item

@@ -1,6 +1,4 @@
-using System;
 using GOGE.Models;
-using GOGE.Utils;
 using GOGE.Systems;
 
 namespace GOGE.Utils
@@ -17,46 +15,46 @@ namespace GOGE.Utils
             if (roll <= 30)
             {
                 // Loot-Event
-                Console.WriteLine("You find a small chest and receive 10 gold!");
+                Console.WriteLine(Localization.TF("Event.SmallGoldChest", 10)); //SmallGoldChest
                 player.Gold += 10;
             }
             else if (roll <= 50)
             {
                 // Story-Event
-                Console.WriteLine("You hear a distant howl... the air is getting colder.");
+                Console.WriteLine(Localization.T("Event.DistantHowl")); // DistantHowl
             }
             else if (roll <= 70)
             {
                 // Risiko-Event
-                Console.WriteLine("You find a sparkling puddle. Do you drink it?");
-                Console.WriteLine("\n1. Yes");
-                Console.WriteLine("2. No");
+                Console.WriteLine(Localization.T("Event.SparklingPuddle.Prompt")); // SparklingPuddle
+                Console.WriteLine("\n" + Localization.T("Event.Choice.Yes"));
+                Console.WriteLine(Localization.T("Event.Choice.No"));
 
-                Console.Write("\nChoice: ");
+                Console.Write("\n" + Localization.T("Menu.ChooseOption"));
                 string choice = Console.ReadLine() ?? "";
 
                 if (choice == "1")
                 {
                     if (rng.Next(1, 101) <= 50)
                     {
-                        Console.WriteLine("You feel refreshed! +10 HP");
+                        Console.WriteLine(Localization.TF("Event.SparklingPuddle.Success", 10));
                         player.CurrentHP += 10;
                     }
                     else
                     {
-                        Console.WriteLine("You'll feel sick... -10 HP");
+                        Console.WriteLine(Localization.TF("Event.SparklingPuddle.Failure", 10));
                         player.CurrentHP -= 10;
                     }
                 }
                 else
                 {
-                    Console.WriteLine("You leave the puddle alone.");
+                    Console.WriteLine(Localization.T("Event.SparklingPuddle.Leave"));
                 }
             }
             else if (roll <= 90)
             {
                 // Kampf-Event
-                Console.WriteLine("An elite opponent lurks in the bushes!");
+                Console.WriteLine(Localization.T("Event.EliteOpponent"));
                 Enemy elite = EnemyFactory.CreateEnemy(player.Level + 1);
                 elite.Type = EnemyType.Elite;
                 CombatSystem.StartFight(player, elite, inventory);
@@ -64,11 +62,11 @@ namespace GOGE.Utils
             else
             {
                 // Dungeon-Event
-                Console.WriteLine("The ground shakes... a dungeon opens!");
+                Console.WriteLine(Localization.T("Event.DungeonOpens"));
                 dungeonAvailable = true;
             }
 
-            Console.WriteLine("\nContinue using ENTER...");
+            Console.WriteLine("\n" + Localization.T("Pause.PressEnter"));
             Console.ReadLine();
         }
     }

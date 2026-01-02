@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-using GOGE;
-using GOGE.Models;
+﻿using GOGE;
 using GOGE.Systems;
 using GOGE.Utils;
 
@@ -9,11 +6,11 @@ class Program
 {
     static void Main()
     {
-        //wenn das klappt hat es gepusht - bitte
         // Load localization before any UI text
         Localization.Set(Language.English); // primary language at start-up is automaticly set to English
 
         // Bootup
+        Console.Title = "GOGE - The Grand Odyssey of Grandiose Explorers";
         TextHelper.LoadingScreen();
 
         while (true)

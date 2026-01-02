@@ -11,4 +11,10 @@
     <Folder Include="Locales\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Locales\**\*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
