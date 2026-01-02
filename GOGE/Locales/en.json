@@ -4,19 +4,20 @@
   "Title.Credits": "3. Credits",
   "Title.Exit": "X. Exit",
   "Title.Language": "4. Change Language",
-  "Menu.ChooseOption": "Choose an option: ",
-  "Main.InvalidInput": "Invalid input.",
+
   "Input.Name.Prompt": "Enter your name: ",
   "Input.Name.Empty": "Name cannot be empty. Please enter a valid name.",
   "Input.Class.Choose": "Choose class:",
   "Input.Class.ChoicePrompt": "Choice (name or number): ",
   "Input.Class.Invalid": "Invalid class selection. Please choose one of the listed classes.",
+
   "Language.Choose": "Select language:",
   "Language.English": "1) English",
   "Language.German": "2) German",
   "Language.Name.English": "English",
   "Language.Name.German": "German",
   "Language.Changed": "Language set to {0}.",
+
   "Character.Created": "Character created!",
   "Character.LevelUp": "{0} reached Level {1}!",
   "Character.Dodged": "{0} dodged the attack!",
@@ -41,9 +42,11 @@
   "Character.Label.Boots": "Boots: {0}",
   "Character.Label.Helmet": "Helmet: {0}",
   "Character.Label.Name": "Name: {0}",
+
   "Inventory.Added": "Added {0} to inventory.",
   "Inventory.ShowTitle": "=== Inventory ===",
   "Inventory.PotionUsed": "{0} has been used!",
+
   "Combat.Option.Attack": "1) Attack",
   "Combat.Option.Potion": "2) Use Potion",
   "Combat.Option.Run": "3) Run Away",
@@ -71,8 +74,12 @@
   "Menu.ViewInventory": "3. View Inventory",
   "Menu.SaveGame": "4. Save Game",
   "Menu.QuitToTitle": "5. Quit to title screen",
+  "Menu.ChooseOption": "Choose an option: ",
+  "Main.InvalidInput": "Invalid input.",
+
   "Game.YouHeadOut": "You head out into the wilds...",
   "Game.DungeonOpened": "A mysterious dungeon has opened nearby!",
+
   "Event.SmallGoldChest": "You find a small chest and receive {0} gold!",
   "Event.DistantHowl": "You hear a distant howl... the air is getting colder.",
   "Event.SparklingPuddle.Prompt": "You find a sparkling puddle. Do you drink it?",
