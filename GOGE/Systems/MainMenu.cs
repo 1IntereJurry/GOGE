@@ -171,7 +171,7 @@ namespace GOGE.Systems
                 return (null, null);
             }
 
-            Console.WriteLine("=== LOAD GAME ===");
+            Console.WriteLine("=== LOAD GAME ==="); // outsource localization
             for (int i = 0; i < files.Count; i++)
                 Console.WriteLine($"{i + 1}) {files[i]}");
 

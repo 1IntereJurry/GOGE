@@ -99,7 +99,7 @@ namespace GOGE
             }
 
             Enemy enemy = EnemyFactory.CreateEnemy(_player.Level);
-            Console.WriteLine($"A {enemy.Name} appears!");
+            Console.WriteLine($"A {enemy.Name} appears!"); //outsorce localization
 
             CombatSystem.StartFight(_player, enemy, _inventory);
 
@@ -158,7 +158,7 @@ namespace GOGE
                 }
             }
 
-            Console.WriteLine("\nBoss Room!");
+            Console.WriteLine("\nBoss Room!"); // outsorce localization
             Enemy boss = EnemyFactory.CreateEnemy(_player.Level, isDungeon: true, isBoss: true);
             var bossOutcome = CombatSystem.StartFight(_player, boss, _inventory);
 
@@ -178,7 +178,7 @@ namespace GOGE
                 return;
             }
 
-            Console.WriteLine("\nYou have cleared the dungeon!");
+            Console.WriteLine("\nYou have cleared the dungeon!"); //outsorce localization
             Pause();
         }
 
@@ -204,7 +204,7 @@ namespace GOGE
                 return;
             }
 
-            Console.WriteLine("Available Saves:");
+            Console.WriteLine("Available Saves:"); // outsorce localization
             for (int i = 0; i < files.Count; i++)
                 Console.WriteLine($"{i + 1}. {files[i]}");
 

@@ -30,7 +30,7 @@ namespace GOGE.Systems
             }
             else
             {
-                Console.WriteLine($"{item.Name} cannot be used directly.");
+                Console.WriteLine($"{item.Name} cannot be used directly."); // outsource to localization
             }
         }
 

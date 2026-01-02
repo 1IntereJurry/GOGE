@@ -15,8 +15,8 @@ namespace GOGE.Models
 
         public override void ApplyEffect(Character character)
         {
-            // Artefakte haben meist passive Effekte.
-            // Du kannst hier später Spezialeffekte einbauen.
+            // artifacts have passive effects, so this method can be left empty
+            // add special artifact effects here if needed in the future
         }
     }
 }
