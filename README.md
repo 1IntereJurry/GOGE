@@ -19,14 +19,22 @@ GOGE is a fully text‑based role‑playing game built in C#. It blends classic 
 • 	Run the console in fullscreen
 • 	Replace the EXE icon with a custom one
 
+---
+
 **Installation Instructions (Developers)**
 
 *Requirements*
 • 	.NET SDK 6.0 or higher
 • 	Visual Studio, Rider, or VS Code
 • 	Windows CMD or PowerShell
-Setup
 
+
+*Setup*
+
+git clone https://github.com/<username>/GOGE.git
+cd GOGE
+dotnet build
+dotnet run
 *Project Structure:*
 
 
@@ -50,5 +58,5 @@ Known Issues
 • 	Dungeon generation is static (3 rooms + boss)
 • 	Status effects are not fully integrated
 • 	Save system does not yet store equipment bonuses
-• 	No Linux/Mac support due to console dependencies
+• 	No Linux/Mac support guaranteed (not tested yet)
 • 	High‑level balancing is incomplete
