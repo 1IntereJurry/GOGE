@@ -15,11 +15,7 @@ GOGE is a fully text‑based role‑playing game built in C#. It blends classic 
 *How to Install*
 1. 	Download the latest release (ZIP or EXE).
 2. 	Extract the files.
-3. 	Run  from the extracted folder.
-*Optional Enhancements*
-• 	Change the console font to Consolas or Cascadia Mono
-• 	Run the console in fullscreen
-• 	Replace the EXE icon with a custom one
+3. 	Run *GOGE.exe* from the extracted folder.
 
 ---
 
