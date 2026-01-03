@@ -49,9 +49,9 @@ GOGE/ <br />
 
 **Known Issues**
 
-• 	Enemy AI is still basic
-• 	Dungeon generation is static (3 rooms + boss)
-• 	Status effects are not fully integrated
-• 	Save system does not yet store equipment bonuses
-• 	No Linux/Mac support guaranteed (not tested yet)
-• 	High‑level balancing is incomplete
+• 	Enemy AI is still basic <br />
+• 	Dungeon generation is static (3 rooms + boss) <br />
+• 	Status effects are not fully integrated <br />
+• 	Save system does not yet store equipment bonuses <br />
+• 	No Linux/Mac support guaranteed (not tested yet) <br />
+• 	High‑level balancing is incomplete <br />
