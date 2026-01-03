@@ -56,7 +56,10 @@ Contributors should manually test gameplay changes before submitting.
 • 	Respectful communication
 Discussions should remain constructive and professional.
 
-Known Issues
+---
+
+**Known Issues**
+
 • 	Enemy AI is still basic
 • 	Dungeon generation is static (3 rooms + boss)
 • 	Status effects are not fully integrated
