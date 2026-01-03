@@ -41,6 +41,7 @@ dotnet run
 *Project Structure:*
 
 GOGE/
+
 ├── Models/           # Characters, enemies, items, weapons, armor
 
 ├── Systems/          # Combat, events, menus, save/load logic
