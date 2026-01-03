@@ -53,6 +53,7 @@
   "Combat.Escape.Success": "You escaped!",
   "Combat.Escape.Fail": "You failed to escape!",
   "Combat.InvalidInput": "Invalid input.",
+  "Combat.NewEnemy": "A wild {0} appears!",
   "Combat.Hit": "You hit the {0} for {1} damage!",
   "Combat.EnemyHit": "{0} hits you for {1} damage!",
   "Combat.EnemyDefeat": "You have defeated the {0}!",

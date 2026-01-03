@@ -53,6 +53,7 @@
   "Combat.Escape.Success": "Du bist entkommen!",
   "Combat.Escape.Fail": "Du konntest nicht entkommen!",
   "Combat.InvalidInput": "Ungültige Eingabe.",
+  "Combat.NewEnemy": "Ein wilder {0} erscheint!",
   "Combat.Hit": "Du triffst den/die {0} für {1} Schaden!",
   "Combat.EnemyHit": "{0} trifft dich für {1} Schaden!",
   "Combat.EnemyDefeat": "Du hast den/die {0} besiegt!",
