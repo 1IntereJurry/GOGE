@@ -38,8 +38,7 @@ dotnet run  <br />
 
 **Project Structure:**
 
-GOGE/
-
+GOGE/ <br />
 ├── Models/           # Characters, enemies, items, weapons, armor <br />
 ├── Systems/          # Combat, events, menus, save/load logic  <br />
 ├── Utils/            # Helper functions (colors, formatting)  <br />
