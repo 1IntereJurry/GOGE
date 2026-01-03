@@ -36,7 +36,7 @@ dotnet run  <br />
 
 ---
 
-*Project Structure:*
+**Project Structure:**
 
 GOGE/
 
