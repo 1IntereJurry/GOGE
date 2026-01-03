@@ -2,6 +2,7 @@ GOGE – A Console‑Based RPG Adventure
 A lightweight, text‑driven RPG running entirely in the Windows console.
 
 **Introduction**
+
 GOGE is a fully text‑based role‑playing game built in C#. It blends classic RPG mechanics—combat, dungeons, loot, leveling, and character progression—into a nostalgic command‑line experience. The project is modular, easy to extend, and designed to be both a learning resource for new developers and a foundation for more advanced RPG systems. Its architecture separates gameplay logic, data models, and utility functions to ensure long‑term maintainability.
 
 **Installation Instructions (Users)**
