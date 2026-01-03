@@ -42,10 +42,11 @@
   "Character.Label.Boots": "Boots: {0}",
   "Character.Label.Helmet": "Helmet: {0}",
   "Character.Label.Name": "Name: {0}",
-
+  
   "Inventory.Added": "Added {0} to inventory.",
   "Inventory.ShowTitle": "=== Inventory ===",
   "Inventory.PotionUsed": "{0} has been used!",
+  "Inventory.EmptyMessage": "\nYour inventory is currently empty!",
 
   "Combat.Option.Attack": "1) Attack",
   "Combat.Option.Potion": "2) Use Potion",

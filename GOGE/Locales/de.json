@@ -46,6 +46,7 @@
   "Inventory.Added": "{0} wurde dem Inventar hinzugefügt.",
   "Inventory.ShowTitle": "=== Inventar ===",
   "Inventory.PotionUsed": "{0} wurde benutzt!",
+  "Inventory.EmptyMessage": "\nDein Inventar ist aktuell leer!",
 
   "Combat.Option.Attack": "1) Angriff",
   "Combat.Option.Potion": "2) Trank benutzen",
