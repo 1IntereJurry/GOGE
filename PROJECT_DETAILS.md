@@ -102,23 +102,7 @@ Responsibilities:
 
 ---
 
-## 4. Design Decisions
-
-### ✔ Console‑only interface  
-Chosen for simplicity, nostalgia, and focus on gameplay logic.
-
-### ✔ System‑based architecture  
-Keeps features isolated and easy to expand.
-
-### ✔ JSON save files  
-Human‑readable, easy to debug, no external dependencies.
-
-### ✔ Randomized encounters  
-Adds replayability and unpredictability.
-
----
-
-## 5. Gameplay Flow
+## 4. Gameplay Flow
 
 1. Player starts the game  
 2. Main menu appears  
@@ -131,7 +115,7 @@ Adds replayability and unpredictability.
 
 ---
 
-## 6. Future Roadmap
+## 5. Future Roadmap
 
 - Dynamic dungeon generation  
 - Improved enemy AI  
@@ -143,7 +127,7 @@ Adds replayability and unpredictability.
 
 ---
 
-## 7. Known Limitations
+## 6. Known Limitations
 
 - Console UI limits visual complexity  
 - No cross‑platform support (Windows only)  
@@ -152,7 +136,7 @@ Adds replayability and unpredictability.
 
 ---
 
-## 8. Contributing Guidelines
+## 7. Contributing Guidelines
 
 - Follow C# naming conventions  
 - Keep methods short and focused  
@@ -163,7 +147,7 @@ Adds replayability and unpredictability.
 
 ---
 
-## 9. Contact
+## 8. Contact
 
 For questions, ideas, or contributions:  
 **https://github.com/1IntereJurry** – Project Lead  
