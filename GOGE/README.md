@@ -40,34 +40,13 @@ dotnet run  <br />
 
 GOGE/
 
-├── Models/           # Characters, enemies, items, weapons, armor
-
-├── Systems/          # Combat, events, menus, save/load logic
-
-├── Utils/            # Helper functions (colors, formatting)
-
-├── GameEngine.cs     # Main game loop and core logic
-
+├── Models/           # Characters, enemies, items, weapons, armor <br />
+├── Systems/          # Combat, events, menus, save/load logic  <br />
+├── Utils/            # Helper functions (colors, formatting)  <br />
+├── GameEngine.cs     # Main game loop and core logic  <br />
 └── Program.cs        # Entry point
 
----
-
-Contributor Expectations
-• 	Small, focused pull requests
-Each change should be isolated and easy to review.
-• 	Consistent code style
-• 	PascalCase for classes
-• 	camelCase for variables
-• 	Avoid magic numbers
-• 	Keep methods short and descriptive
-• 	Documentation
-Any new system or complex logic must be commented or documented.
-• 	Testing
-Contributors should manually test gameplay changes before submitting.
-• 	Respectful communication
-Discussions should remain constructive and professional.
-
----
+#
 
 **Known Issues**
 
