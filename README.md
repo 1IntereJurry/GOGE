@@ -33,11 +33,19 @@ GOGE is a fully text‑based role‑playing game built in C#. It blends classic 
 
 *Setup*
 
-git clone https://github.com/<username>/GOGE.git
+git clone https://github.com/1IntereJurry/GOGE.git
 cd GOGE
 dotnet build
 dotnet run
+
 *Project Structure:*
+
+GOGE/
+├── Models/           # Characters, enemies, items, weapons, armor
+├── Systems/          # Combat, events, menus, save/load logic
+├── Utils/            # Helper functions (colors, formatting)
+├── GameEngine.cs     # Main game loop and core logic
+└── Program.cs        # Entry point
 
 ---
 
