@@ -167,4 +167,4 @@ Adds replayability and unpredictability.
 ## 9. Contact
 
 For questions, ideas, or contributions:  
-**Eric S.** – Project Lead  
+**https://github.com/1IntereJurry** – Project Lead  
