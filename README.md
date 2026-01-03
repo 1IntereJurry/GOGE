@@ -1,4 +1,4 @@
-#GOGE – A Console‑Based RPG Adventure
+###GOGE – A Console‑Based RPG Adventure
 A lightweight, text‑driven RPG running entirely in the Windows console.
 
 **Introduction**
