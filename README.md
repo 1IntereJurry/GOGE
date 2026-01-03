@@ -42,9 +42,13 @@ dotnet run
 
 GOGE/
 ├── Models/           # Characters, enemies, items, weapons, armor
+
 ├── Systems/          # Combat, events, menus, save/load logic
+
 ├── Utils/            # Helper functions (colors, formatting)
+
 ├── GameEngine.cs     # Main game loop and core logic
+
 └── Program.cs        # Entry point
 
 ---
