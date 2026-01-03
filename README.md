@@ -6,19 +6,21 @@ A lightweight, text‑driven RPG running entirely in the Windows console.
 GOGE is a fully text‑based role‑playing game built in C#. It blends classic RPG mechanics—combat, dungeons, loot, leveling, and character progression—into a nostalgic command‑line experience. The project is modular, easy to extend, and designed to be both a learning resource for new developers and a foundation for more advanced RPG systems. Its architecture separates gameplay logic, data models, and utility functions to ensure long‑term maintainability.
 
 **Installation Instructions (Users)**
-Requirements
+
+*Requirements*
 • 	Windows 10 or later
 • 	.NET Runtime 6.0 or higher
-How to Install
+*How to Install*
 1. 	Download the latest release (ZIP or EXE).
 2. 	Extract the files.
 3. 	Run  from the extracted folder.
-Optional Enhancements
+*Optional Enhancements*
 • 	Change the console font to Consolas or Cascadia Mono
 • 	Run the console in fullscreen
 • 	Replace the EXE icon with a custom one
 
-#Installation Instructions (Developers)
+**Installation Instructions (Developers)**
+
 *Requirements*
 • 	.NET SDK 6.0 or higher
 • 	Visual Studio, Rider, or VS Code
