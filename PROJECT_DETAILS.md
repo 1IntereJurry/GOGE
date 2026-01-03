@@ -60,7 +60,6 @@ Contains all gameplay systems.
 | **InventorySystem.cs** | Manages item storage, equipping, and displaying inventory. |
 | **EventSystem.cs** | Random world events (loot, encounters, dungeon discovery). |
 | **SaveSystem.cs** | Serializes and deserializes game state to JSON files. |
-| **MenuSystem.cs** *(optional)* | Could be used for future menu expansions. |
 
 ---
 
