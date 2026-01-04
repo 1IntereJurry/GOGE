@@ -1,6 +1,7 @@
 ﻿using GOGE.Models;
 using GOGE.Systems;
 using GOGE.Utils;
+using System.Numerics;
 
 namespace GOGE
 {
@@ -12,6 +13,8 @@ namespace GOGE
         private InventorySystem _inventory;
         private Character _player;
 
+        public static Character? CurrentPlayer { get; private set; }
+        public static InventorySystem? CurrentInventory { get; private set; }
         public GameEngine(Character player, InventorySystem inventory)
         {
             _player = player;
@@ -180,7 +183,8 @@ namespace GOGE
                 return;
             }
 
-            Console.WriteLine(Localization.T("Game.DungeonCleared")); 
+            Console.WriteLine(Localization.T("Game.DungeonCleared"));
+            SaveSystem.SaveGame(_player, _inventory, isAutoSave: true);
             Pause();
         }
 

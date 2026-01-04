@@ -1,4 +1,4 @@
-using GOGE.Models;
+﻿using GOGE.Models;
 using GOGE.Utils;
 
 namespace GOGE.Systems
@@ -83,7 +83,7 @@ namespace GOGE.Systems
             Console.Clear();
             TextHelper.ShowTitleBanner();
 
-            // --- Name (required) ---
+            // create character - name input (required)
             string name;
             while (true)
             {
@@ -101,7 +101,7 @@ namespace GOGE.Systems
                 TextHelper.ShowTitleBanner();
             }
 
-            // --- Class selection (required & validated) ---
+            // Class selection (required)
             string[] classes = new[] { "Knight", "Mage", "Rogue", "Berserker" };
             string charClass = string.Empty;
 
@@ -159,43 +159,148 @@ namespace GOGE.Systems
 
         private static (Character?, InventorySystem?) LoadExistingGame()
         {
-            Console.Clear();
-            TextHelper.ShowTitleBanner();
-
-            var files = SaveSystem.GetSaveFiles();
-
-            if (files.Count == 0)
+            while (true)
             {
-                Console.WriteLine(Localization.T("Load.NoSaves"));
-                Pause();
-                return (null, null);
-            }
+                Console.Clear();
+                TextHelper.ShowTitleBanner();
 
-            Console.WriteLine("=== LOAD GAME ==="); // outsource localization
-            for (int i = 0; i < files.Count; i++)
-                Console.WriteLine($"{i + 1}) {files[i]}");
+                var manualSaves = SaveSystem.GetManualSaves();
 
-            Console.Write("\n" + Localization.T("Input.Class.ChoicePrompt"));
-            if (!int.TryParse(Console.ReadLine(), out int index) ||
-                index < 1 || index > files.Count)
-            {
+                if (manualSaves.Count == 0)
+                {
+                    Console.WriteLine(Localization.T("Load.NoSaves"));
+                    Pause();
+                    return (null, null);
+                }
+
+                Console.WriteLine(Localization.T("Main.Load.Title"));
+                for (int i = 0; i < manualSaves.Count; i++)
+                    Console.WriteLine($"{i + 1}) {manualSaves[i]}");
+
+                Console.WriteLine();
+                Console.WriteLine("[A] " + Localization.T("Main.Load.ShowAutosaves"));
+                Console.WriteLine("[Q] " + Localization.T("Main.Load.Back"));
+
+                Console.Write("\n" + Localization.T("Input.Class.ChoicePrompt"));
+                var key = Console.ReadKey(true).Key;
+
+                // Zurück
+                if (key == ConsoleKey.Q)
+                    return (null, null);
+
+                // Autosave-Menü
+                if (key == ConsoleKey.A)
+                {
+                    var (player, inventory) = ShowAutoSaveMenu(null);
+
+                    if (player != null)
+                        return (player, inventory);
+
+                    continue;
+                }
+
+                // Manuelle Saves laden
+                if (char.IsDigit((char)key))
+                {
+                    int index = (int)char.GetNumericValue((char)key) - 1;
+
+                    if (index >= 0 && index < manualSaves.Count)
+                    {
+                        var save = SaveSystem.LoadGame(manualSaves[index]);
+                        if (save == null)
+                        {
+                            Console.WriteLine(Localization.T("Save.NotFound"));
+                            Pause();
+                            return (null, null);
+                        }
+
+                        Pause();
+                        return (save.Player, save.Inventory);
+                    }
+                }
+
                 Console.WriteLine(Localization.T("Load.InvalidSelection"));
                 Pause();
-                return (null, null);
             }
+        }
 
-            var save = SaveSystem.LoadGame(files[index - 1]);
-
-            if (save == null)
+        private static (Character?, InventorySystem?) ShowAutoSaveMenu(Character? currentPlayer)
+        {
+            while (true)
             {
-                Console.WriteLine(Localization.T("Save.NotFound"));
+                Console.Clear();
+                TextHelper.ShowTitleBanner();
+
+                var autoSaves = SaveSystem.GetAutoSaves();
+
+                Console.WriteLine("=== AUTOSAVES ===");
+
+                if (autoSaves.Count == 0)
+                {
+                    Console.WriteLine(Localization.T("Save.NoAutoSaves"));
+                }
+                else
+                {
+                    for (int i = 0; i < autoSaves.Count; i++)
+                        Console.WriteLine($"{i + 1}) {autoSaves[i]}");
+                }
+
+                Console.WriteLine();
+                Console.WriteLine("[M] Manuelle Saves anzeigen");
+                Console.WriteLine("[D] Alte Autosaves löschen");
+                Console.WriteLine("[Q] Zurück");
+
+                Console.Write("\n" + Localization.T("Input.Class.ChoicePrompt"));
+                var key = Console.ReadKey(true).Key;
+
+                // back
+                if (key == ConsoleKey.Q)
+                    return (null, null);
+
+                // back to manual saves
+                if (key == ConsoleKey.M)
+                    return (null, null);
+
+                // delete old autosaves
+                if (key == ConsoleKey.D)
+                {
+                    if (currentPlayer == null)
+                    {
+                        Console.WriteLine("Kein Spieler geladen – kann Autosaves nicht filtern.");
+                        Pause();
+                        continue;
+                    }
+
+                    Console.WriteLine(Localization.T("Save.CleaningAutosaves"));
+                    SaveSystem.DeleteOldAutoSavesForPlayer(currentPlayer.Name);
+                    Console.WriteLine(Localization.T("Save.CleaningDone"));
+                    Pause();
+                    continue;
+                }
+
+                // Autosave laden
+                if (char.IsDigit((char)key))
+                {
+                    int index = (int)char.GetNumericValue((char)key) - 1;
+
+                    if (index >= 0 && index < autoSaves.Count)
+                    {
+                        var save = SaveSystem.LoadGame(autoSaves[index]);
+                        if (save == null)
+                        {
+                            Console.WriteLine(Localization.T("Save.NotFound"));
+                            Pause();
+                            return (null, null);
+                        }
+
+                        Pause();
+                        return (save.Player, save.Inventory);
+                    }
+                }
+
+                Console.WriteLine(Localization.T("Load.InvalidSelection"));
                 Pause();
-                return (null, null);
             }
-
-            Pause();
-
-            return (save.Player, save.Inventory);
         }
 
         private static void Pause()

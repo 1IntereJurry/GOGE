@@ -73,7 +73,7 @@ namespace GOGE.Systems
                 Console.Clear();
             }
 
-            return EndFight(player, enemy);
+            return EndFight(player, enemy, inventory);
         }
 
         // ---------------------------------------------------------
@@ -139,7 +139,7 @@ namespace GOGE.Systems
         // ---------------------------------------------------------
         // End of Fight
         // ---------------------------------------------------------
-        private static FightOutcome EndFight(Character player, Enemy enemy)
+        private static FightOutcome EndFight(Character player, Enemy enemy, InventorySystem inventory)
         {
             Console.Clear();
             TextHelper.ShowTitleBanner();
@@ -161,6 +161,7 @@ namespace GOGE.Systems
             Pause();
             Console.Clear();
 
+            SaveSystem.SaveGame(player, inventory, isAutoSave: true);
             return FightOutcome.Victory;
         }
 

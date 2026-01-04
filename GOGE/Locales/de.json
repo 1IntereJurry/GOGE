@@ -61,6 +61,10 @@
   "Combat.EnemyLooted": "Du erhältst {0} EP und {1} Gold!",
   "Item.UseFailed": "{0} konnte nicht benutzt werden.",
 
+  "Menu.AutoSaves": "Autosaves",
+  "Save.NoAutoSaves": "Keine Autosaves gefunden.",
+  "Save.CleaningAutosaves": "Lösche alte Autosaves...",
+  "Save.CleaningDone": "Alte Autosaves wurden gelöscht.",
   "Save.Saved": "Spiel gespeichert als: {0}.json",
   "Save.NotFound": "Diese Speicherdatei existiert nicht.",
   "Save.Loaded": "Speicherdatei '{0}' geladen!",
@@ -78,6 +82,10 @@
   "Menu.QuitToTitle": "5. Zur Titelseite zurückkehren",
   "Menu.ChooseOption": "Wähle eine Option: ",
   "Main.InvalidInput": "Ungültige Eingabe.",
+
+  "Main.Load.Title": "=== Spiel laden ===",
+  "Main.Load.ShowAutosaves": "Autosaves anzeigen",
+  "Main.Load.Back": "Zurück",
 
   "Game.YouHeadOut": "Du machst dich auf in die Wildnis...",
   "Game.DungeonOpened": "Ein mysteriöser Dungeon hat sich in der Nähe geöffnet!",

@@ -22,15 +22,18 @@ namespace GOGE.Systems
         // ---------------------------------------------------------
         // SAVE GAME
         // ---------------------------------------------------------
-        public static void SaveGame(Character player, InventorySystem inventory)
+        public static void SaveGame(Character player, InventorySystem inventory, bool isAutoSave = false)
         {
             if (!Directory.Exists(SaveFolder))
                 Directory.CreateDirectory(SaveFolder);
 
             string timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
-            string rawName = $"{player.Name} ({player.Class}) - {timestamp}";
-            string safeName = SanitizeFileName(rawName);
 
+            string rawName = isAutoSave
+                ? $"AUTO - {player.Name} ({player.Class}) - {timestamp}"
+                : $"{player.Name} ({player.Class}) - {timestamp}";
+
+            string safeName = SanitizeFileName(rawName);
             string path = Path.Combine(SaveFolder, $"{safeName}.json");
 
             var data = new SaveData
@@ -45,14 +48,14 @@ namespace GOGE.Systems
             var options = new JsonSerializerOptions
             {
                 WriteIndented = true,
-                // Optional: add converters for polymorphic Item handling later
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
             };
 
             string json = JsonSerializer.Serialize(data, options);
             File.WriteAllText(path, json);
 
-            Console.WriteLine(Localization.TF("Save.Saved", safeName));
+            if (!isAutoSave)
+                Console.WriteLine(Localization.TF("Save.Saved", safeName));
         }
 
         // ---------------------------------------------------------
@@ -82,7 +85,7 @@ namespace GOGE.Systems
             }
             catch (Exception ex)
             {
-                Console.WriteLine( Localization.TF("Load.ErrorDeserializing", ex.Message));
+                Console.WriteLine(Localization.TF("Load.ErrorDeserializing", ex.Message));
                 return null;
             }
 
@@ -92,16 +95,13 @@ namespace GOGE.Systems
                 return null;
             }
 
-            // MIGRATION
             UpgradeSaveData(data);
 
-            // Ensure Inventory is not null (System.Text.Json may create an empty InventorySystem)
             data.Inventory ??= new InventorySystem();
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(Localization.TF("Save.Loaded", fileName)); 
+            Console.WriteLine(Localization.TF("Save.Loaded", fileName));
             Console.ResetColor();
-
 
             return data;
         }
@@ -113,7 +113,6 @@ namespace GOGE.Systems
         {
             if (data.Version < 2)
             {
-                // example migration
                 data.Version = 2;
             }
 
@@ -137,6 +136,67 @@ namespace GOGE.Systems
                             .ToList();
         }
 
+        // ---------------------------------------------------------
+        // FILTERED SAVE LISTS
+        // ---------------------------------------------------------
+        public static List<string> GetAutoSaves()
+        {
+            if (!Directory.Exists(SaveFolder))
+                Directory.CreateDirectory(SaveFolder);
+            return Directory.GetFiles(SaveFolder, "*.json")
+                .Where(f => Path.GetFileName(f).StartsWith("AUTO -"))
+                .OrderByDescending(f => File.GetCreationTime(f))
+                .Take(15)
+                .Select(f => Path.GetFileNameWithoutExtension(f))
+                .ToList();
+        }
+
+        public static List<string> GetManualSaves()
+        {
+            if (!Directory.Exists(SaveFolder))
+                Directory.CreateDirectory(SaveFolder);
+            return Directory.GetFiles(SaveFolder, "*.json")
+                .Where(f => !Path.GetFileName(f).StartsWith("AUTO -"))
+                .OrderByDescending(f => File.GetCreationTime(f))
+                .Select(f => Path.GetFileNameWithoutExtension(f))
+                .ToList();
+        }
+
+        // ---------------------------------------------------------
+        // DELETE OLD AUTOSAVES (KEEP 3 NEWEST)
+        // ---------------------------------------------------------
+        public static void DeleteOldAutoSavesForPlayer(string playerName)
+        {
+            var autoSaveFiles = Directory.GetFiles(SaveFolder, "*.json")
+                .Where(f => Path.GetFileName(f).StartsWith("AUTO -"))
+                .OrderByDescending(f => File.GetCreationTime(f))
+                .ToList();
+
+            var playerAutoSaves = autoSaveFiles
+                .Where(f =>
+                {
+                    try
+                    {
+                        string json = File.ReadAllText(f);
+                        var data = JsonSerializer.Deserialize<SaveData>(json);
+                        return data?.Player?.Name == playerName;
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                })
+                .ToList();
+
+            var toDelete = playerAutoSaves.Skip(3);
+
+            foreach (var file in toDelete)
+                File.Delete(file);
+        }
+
+        // ---------------------------------------------------------
+        // DELETE SAVE
+        // ---------------------------------------------------------
         public static bool DeleteSave(string fileName)
         {
             string path = Path.Combine(SaveFolder, $"{fileName}.json");
@@ -148,7 +208,9 @@ namespace GOGE.Systems
             return true;
         }
 
-        // Helper: remove invalid filename chars
+        // ---------------------------------------------------------
+        // SANITIZE FILE NAME
+        // ---------------------------------------------------------
         private static string SanitizeFileName(string name)
         {
             var invalid = Path.GetInvalidFileNameChars();
