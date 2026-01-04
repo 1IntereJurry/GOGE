@@ -30,7 +30,7 @@ namespace GOGE.Systems
             }
             else
             {
-                Console.WriteLine("Item.UseFailed", item.Name); // outsource to localization
+                Console.WriteLine("Item.UseFailed", item.Name); 
             }
         }
 
@@ -40,18 +40,24 @@ namespace GOGE.Systems
             Remove(item);
         }
 
-        public void Show()
+        public void ShowInventory()
         {
+            Console.Clear();
+            TextHelper.ShowTitleBanner();
             Console.WriteLine(Localization.T("Inventory.ShowTitle"));
+
+            if (_items.Count == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(Localization.T("Inventory.EmptyMessage"));
+                Console.ResetColor();
+                return;
+            }
+
             foreach (var item in _items)
             {
                 Console.WriteLine($"[{item.Rarity}] {item.Name} - {item.Description}");
             }
-        }
-
-        public void ShowInventory()
-        {
-            Show();
         }
 
         public List<T> Get<T>() where T : Item

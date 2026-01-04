@@ -6,10 +6,10 @@
   "Title.Language": "4. Change Language",
 
   "Input.Name.Prompt": "Enter your name: ",
-  "Input.Name.Empty": "Name cannot be empty. Please enter a valid name.",
+  "Input.Name.Empty": "\nName cannot be empty. Please enter a valid name.",
   "Input.Class.Choose": "Choose class:",
   "Input.Class.ChoicePrompt": "Choice (name or number): ",
-  "Input.Class.Invalid": "Invalid class selection. Please choose one of the listed classes.",
+  "Input.Class.Invalid": "\nInvalid class selection. Please choose one of the listed classes.",
 
   "Language.Choose": "Select language:",
   "Language.English": "1) English",
@@ -42,10 +42,11 @@
   "Character.Label.Boots": "Boots: {0}",
   "Character.Label.Helmet": "Helmet: {0}",
   "Character.Label.Name": "Name: {0}",
-
+  
   "Inventory.Added": "Added {0} to inventory.",
   "Inventory.ShowTitle": "=== Inventory ===",
   "Inventory.PotionUsed": "{0} has been used!",
+  "Inventory.EmptyMessage": "\nYour inventory is currently empty!",
 
   "Combat.Option.Attack": "1) Attack",
   "Combat.Option.Potion": "2) Use Potion",
@@ -53,6 +54,7 @@
   "Combat.Escape.Success": "You escaped!",
   "Combat.Escape.Fail": "You failed to escape!",
   "Combat.InvalidInput": "Invalid input.",
+  "Combat.NewEnemy": "A wild {0} appears!",
   "Combat.Hit": "You hit the {0} for {1} damage!",
   "Combat.EnemyHit": "{0} hits you for {1} damage!",
   "Combat.EnemyDefeat": "You have defeated the {0}!",
@@ -76,9 +78,13 @@
   "Menu.QuitToTitle": "5. Quit to title screen",
   "Menu.ChooseOption": "Choose an option: ",
   "Main.InvalidInput": "Invalid input.",
-
+  
   "Game.YouHeadOut": "You head out into the wilds...",
   "Game.DungeonOpened": "A mysterious dungeon has opened nearby!",
+  "Game.DungeonUnavailable": "\nThe dungeon is not yet accessible. Defeat more elite opponents to unlock it.",
+    "Game.DungeonRoom": "Room {0}",
+  "Game.DungeonBossRoom": "\nBossroom",
+  "Game.DungeonCleared": "\nYou have cleared the dungeon!",
 
   "Event.SmallGoldChest": "You find a small chest and receive {0} gold!",
   "Event.DistantHowl": "You hear a distant howl... the air is getting colder.",

@@ -118,7 +118,9 @@ namespace GOGE
         {
             if (!_dungeonAvailable)
             {
-                Console.WriteLine(Localization.T("Load.NoSaves"));
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(Localization.T("Game.DungeonUnavailable"));
+                Console.ResetColor();
                 Pause();
                 return;
             }
@@ -134,7 +136,7 @@ namespace GOGE
 
             for (int i = 1; i <= 3; i++)
             {
-                Console.WriteLine($"\nRoom {i}:");
+                Console.WriteLine(Localization.TF("Game.DungeonRoom", i));
 
                 Enemy enemy = EnemyFactory.CreateEnemy(_player.Level, isDungeon: true);
                 var outcome = CombatSystem.StartFight(_player, enemy, _inventory);
@@ -158,7 +160,7 @@ namespace GOGE
                 }
             }
 
-            Console.WriteLine("\nBoss Room!"); // outsorce localization
+            Console.WriteLine(Localization.T("Game.DungeonBossRoom"));
             Enemy boss = EnemyFactory.CreateEnemy(_player.Level, isDungeon: true, isBoss: true);
             var bossOutcome = CombatSystem.StartFight(_player, boss, _inventory);
 
@@ -178,7 +180,7 @@ namespace GOGE
                 return;
             }
 
-            Console.WriteLine("\nYou have cleared the dungeon!"); //outsorce localization
+            Console.WriteLine(Localization.T("Game.DungeonCleared")); 
             Pause();
         }
 

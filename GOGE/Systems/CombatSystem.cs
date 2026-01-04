@@ -19,7 +19,7 @@ namespace GOGE.Systems
             while (player.CurrentHP > 0 && enemy.CurrentHP > 0)
             {
                 TextHelper.ShowTitleBanner();
-                //Console.WriteLine(Localization.TF("Combat.Hit", "", 0)); // keep layout consistent
+                Console.WriteLine(Localization.TF("Combat.NewEnemy", enemy.Name));
 
                 Console.WriteLine($"\n{player.Name}: {player.CurrentHP}/{player.MaxHP} HP");
                 Console.WriteLine($"{enemy.Name}: {enemy.CurrentHP}/{enemy.MaxHP} HP\n");
