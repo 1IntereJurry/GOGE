@@ -6,10 +6,10 @@
   "Title.Language": "4. Sprache ändern",
 
   "Input.Name.Prompt": "Gib deinen Namen ein: ",
-  "Input.Name.Empty": "Der Name darf nicht leer sein. Bitte gib einen gültigen Namen ein.",
+  "Input.Name.Empty": "\nDer Name darf nicht leer sein. Bitte gib einen gültigen Namen ein.",
   "Input.Class.Choose": "Wähle eine Klasse:",
   "Input.Class.ChoicePrompt": "Auswahl (Name oder Nummer): ",
-  "Input.Class.Invalid": "Ungültige Klassenauswahl. Bitte wähle eine der aufgeführten Klassen.",
+  "Input.Class.Invalid": "\nUngültige Klassenauswahl. Bitte wähle eine der aufgeführten Klassen.",
 
   "Language.Choose": "Sprache auswählen:",
   "Language.English": "1) Englisch",
@@ -81,6 +81,10 @@
 
   "Game.YouHeadOut": "Du machst dich auf in die Wildnis...",
   "Game.DungeonOpened": "Ein mysteriöser Dungeon hat sich in der Nähe geöffnet!",
+  "Game.DungeonUnavailable": "\nDer Dungeon ist derzeit nicht zugänglich. Besiege mehr Gegner, um ihn zu öffnen!",
+  "Game.DungeonRoom": "Raum {0}",
+  "Game.DungeonBossRoom": "\nBossraum",
+  "Game.DungeonCleared": "\nDu hast den Dungeon erfolgreich abgeschlossen!",
 
   "Event.SmallGoldChest": "Du findest eine kleine Truhe und erhältst {0} Gold!",
   "Event.DistantHowl": "Du hörst ein fernes Heulen... die Luft wird kälter.",
