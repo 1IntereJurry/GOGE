@@ -61,6 +61,10 @@
   "Combat.EnemyLooted": "You earned {0} XP and {1} gold!",
   "Item.UseFailed": "{0} could not be used.",
 
+  "Menu.AutoSaves": "Autosaves",
+  "Save.NoAutoSaves": "No autosaves found.",
+  "Save.CleaningAutosaves": "Deleting old autosaves...",
+  "Save.CleaningDone": "Old autosaves have been deleted.",
   "Save.Saved": "Game saved as: {0}.json",
   "Save.NotFound": "This save file does not exist.",
   "Save.Loaded": "Save file '{0}' loaded!",
@@ -79,6 +83,10 @@
   "Menu.ChooseOption": "Choose an option: ",
   "Main.InvalidInput": "Invalid input.",
   
+  "Main.Load.Title": "=== Load Game ===",
+  "Main.Load.ShowAutosaves": "Show autosaves",
+  "Main.Load.Back": "Back",
+
   "Game.YouHeadOut": "You head out into the wilds...",
   "Game.DungeonOpened": "A mysterious dungeon has opened nearby!",
   "Game.DungeonUnavailable": "\nThe dungeon is not yet accessible. Defeat more elite opponents to unlock it.",
