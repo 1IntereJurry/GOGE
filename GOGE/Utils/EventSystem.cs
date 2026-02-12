@@ -12,18 +12,23 @@ namespace GOGE.Utils
             Console.Clear();
             int roll = rng.Next(1, 101);
 
-            if (roll <= 30)
+            if (roll <= 25)
             {
                 // Loot-Event
                 Console.WriteLine(Localization.TF("Event.SmallGoldChest", 10));
                 player.Gold += 10;
             }
-            else if (roll <= 50)
+            else if (roll <= 45)
             {
                 // Story-Event
                 Console.WriteLine(Localization.T("Event.DistantHowl"));
             }
-            else if (roll <= 70)
+            else if (roll <= 65)
+            {
+                // Merchant-Event
+                ShopSystem.ShowMerchant(player, inventory);
+            }
+            else if (roll <= 80)
             {
                 // Risiko-Event
                 Console.WriteLine(Localization.T("Event.SparklingPuddle.Prompt"));
@@ -51,7 +56,7 @@ namespace GOGE.Utils
                     Console.WriteLine(Localization.T("Event.SparklingPuddle.Leave"));
                 }
             }
-            else if (roll <= 90)
+            else if (roll <= 95)
             {
                 // Kampf-Event
                 Console.WriteLine(Localization.T("Event.EliteOpponent"));

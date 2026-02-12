@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace GOGE.Models
 {
     public class Enemy
@@ -101,7 +104,38 @@ namespace GOGE.Models
 
         private void GenerateLoot()
         {
+            // Always drop gold
             LootTable.Add(new Gold(GoldReward));
+
+            var rng = new Random();
+
+            int drops = 0;
+            switch (Type)
+            {
+                case EnemyType.Boss:
+                    drops = rng.Next(2, 5); // 2-4 items
+                    break;
+                case EnemyType.Elite:
+                    drops = rng.Next(1, 3); // 1-2 items
+                    break;
+                default:
+                    drops = rng.Next(0, 2); // 0-1 items
+                    break;
+            }
+
+            for (int i = 0; i < drops; i++)
+            {
+                try
+                {
+                    var item = global::LootTable.GetLootForEnemy(Type, Level);
+                    if (item != null)
+                        LootTable.Add(item);
+                }
+                catch
+                {
+                    // ignore loot failures
+                }
+            }
         }
 
         public int GetDamage()

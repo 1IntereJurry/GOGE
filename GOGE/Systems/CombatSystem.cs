@@ -117,7 +117,7 @@ namespace GOGE.Systems
         // ---------------------------------------------------------
         private static void UsePotion(Character player, InventorySystem inventory)
         {
-            var potion = inventory.Items.FirstOrDefault(i => i.Name.ToLower().Contains("potion"));
+            var potion = inventory.Items.OfType<Potion>().FirstOrDefault();
 
             if (potion == null)
             {
@@ -128,10 +128,8 @@ namespace GOGE.Systems
             }
             else
             {
-                player.CurrentHP = Math.Min(player.MaxHP, player.CurrentHP + 30);
-                inventory.Remove(potion);
-                Console.WriteLine(Localization.T("Inventory.Added"));
-                Console.WriteLine(Localization.T("Character.Created"));
+                // Use the potion's actual effect
+                inventory.Use(potion, player);
                 Pause();
             }
         }
@@ -156,8 +154,35 @@ namespace GOGE.Systems
             player.Gold += enemy.GoldReward;
 
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine(Localization.TF("Combat.EnemyLooted", enemy.XPReward, enemy.GoldReward)); // message recieved exp & gold
+            Console.WriteLine(Localization.TF("Combat.EnemyLooted", enemy.XPReward, enemy.GoldReward));
             Console.ResetColor();
+
+            // Add loot to inventory (skip Gold items)
+            if (enemy.LootTable.Count > 0)
+            {
+                var nonGold = enemy.LootTable.Where(l => !(l is Gold)).ToList();
+                var goldItems = enemy.LootTable.OfType<Gold>().ToList();
+
+                // directly credit gold items
+                foreach (var g in goldItems)
+                {
+                    player.Gold += g.Amount; // note: GoldReward already added above for base gold, this is additional gold drops
+                }
+
+                if (nonGold.Count > 0)
+                {
+                    Console.WriteLine();
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine(Localization.T("Combat.LootObtained"));
+                    Console.ResetColor();
+
+                    foreach (var loot in nonGold)
+                    {
+                        inventory.Add(loot);
+                    }
+                }
+            }
+
             Pause();
             Console.Clear();
 
