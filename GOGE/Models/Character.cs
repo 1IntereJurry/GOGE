@@ -201,7 +201,24 @@ namespace GOGE.Models
                 return;
             }
 
-            CurrentHP -= amount;
+            // Sum damage reduction from equipped armor pieces
+            double totalReduction = 0.0;
+            if (EquippedHelmet != null) totalReduction += EquippedHelmet.DamageReductionPercent;
+            if (EquippedChestplate != null) totalReduction += EquippedChestplate.DamageReductionPercent;
+            if (EquippedPants != null) totalReduction += EquippedPants.DamageReductionPercent;
+            if (EquippedBoots != null) totalReduction += EquippedBoots.DamageReductionPercent;
+
+            // cap total reduction at 75%
+            totalReduction = Math.Min(0.75, totalReduction);
+
+            int reduced = Math.Max(1, (int)Math.Round(amount * (1.0 - totalReduction)));
+
+            if (totalReduction > 0)
+            {
+                Console.WriteLine($"Armor reduced incoming damage by {Math.Round(totalReduction * 100)}%.");
+            }
+
+            CurrentHP -= reduced;
 
             if (CurrentHP <= 0)
                 Console.WriteLine(Localization.TF("Character.Defeated", Name));

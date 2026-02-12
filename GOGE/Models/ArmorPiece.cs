@@ -8,6 +8,9 @@ namespace GOGE.Models
         public int Agility { get; set; }
         public int Vitality { get; set; }
 
+        // Damage reduction as fraction (e.g. 0.05 = 5%) provided by this armor piece
+        public double DamageReductionPercent { get; set; }
+
         public ArmorPiece(string name, int armor, string rarity)
         {
             Name = name;
@@ -27,6 +30,9 @@ namespace GOGE.Models
             Strength = 0;
             Agility = 0;
             Vitality = 0;
+
+            // Basic damage reduction: 5% per armor point, capped at 50%
+            DamageReductionPercent = Math.Min(0.5, armor * 0.05);
         }
     }
 }

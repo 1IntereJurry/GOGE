@@ -1,6 +1,7 @@
 using GOGE.Models;
 using GOGE.Utils;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace GOGE.Systems
@@ -32,7 +33,7 @@ namespace GOGE.Systems
             }
             else
             {
-                Console.WriteLine(Localization.TF("Inventory.UseFailed", item.Name)); 
+                Console.WriteLine(Localization.TF("Inventory.UseFailed", item.Name));
             }
         }
 
@@ -48,10 +49,23 @@ namespace GOGE.Systems
             {
                 Console.Clear();
                 TextHelper.ShowTitleBanner();
-                Console.WriteLine(Localization.T("Inventory.ShowTitle"));
+
+                // Header
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("=== Inventory ===\n");
+                Console.ResetColor();
+
+                // Show name with level and current/needed XP
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine(Localization.TF("Character.Label.Name", character.Name) + $" (Lv {character.Level})  XP: {character.XP}/{character.XPToNextLevel}");
+                Console.ResetColor();
 
                 Console.WriteLine();
+
+                // Equipped
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
                 Console.WriteLine(Localization.T("Inventory.Equipped"));
+                Console.ResetColor();
 
                 var weaponName = character?.EquippedWeapon?.Name ?? "None";
                 var chestName = character?.EquippedChestplate?.Name ?? "None";
@@ -59,127 +73,137 @@ namespace GOGE.Systems
                 var bootsName = character?.EquippedBoots?.Name ?? "None";
                 var helmetName = character?.EquippedHelmet?.Name ?? "None";
 
-                Console.WriteLine(Localization.TF("Inventory.Equipped.Weapon", weaponName));
-                Console.WriteLine(Localization.TF("Inventory.Equipped.Chest", chestName));
-                Console.WriteLine(Localization.TF("Inventory.Equipped.Pants", pantsName));
-                Console.WriteLine(Localization.TF("Inventory.Equipped.Boots", bootsName));
-                Console.WriteLine(Localization.TF("Inventory.Equipped.Helmet", helmetName));
+                Console.WriteLine("  " + Localization.TF("Inventory.Equipped.Weapon", weaponName));
+                Console.WriteLine("  " + Localization.TF("Inventory.Equipped.Chest", chestName));
+                Console.WriteLine("  " + Localization.TF("Inventory.Equipped.Pants", pantsName));
+                Console.WriteLine("  " + Localization.TF("Inventory.Equipped.Boots", bootsName));
+                Console.WriteLine("  " + Localization.TF("Inventory.Equipped.Helmet", helmetName));
 
                 Console.WriteLine();
 
-                if (_items.Count == 0)
+                // Items (exclude Gold)
+                var itemsToShow = _items.Where(i => !(i is Gold)).ToList();
+
+                if (itemsToShow.Count == 0)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.WriteLine(Localization.T("Inventory.EmptyMessage"));
                     Console.ResetColor();
                     Pause();
                     return;
                 }
 
-                for (int i = 0; i < _items.Count; i++)
+                // List items with colored rarity
+                for (int i = 0; i < itemsToShow.Count; i++)
                 {
-                    var item = _items[i];
-                    Console.WriteLine($"{i + 1}) [{item.Rarity}] {item.Name} - {item.Description}");
+                    var item = itemsToShow[i];
+                    var rarity = (item.Rarity ?? "").ToLower();
+                    var color = rarity switch
+                    {
+                        "common" => ConsoleColor.Gray,
+                        "uncommon" => ConsoleColor.Green,
+                        "rare" => ConsoleColor.Blue,
+                        "epic" => ConsoleColor.Magenta,
+                        "legendary" => ConsoleColor.Yellow,
+                        _ => ConsoleColor.White
+                    };
+
+                    Console.Write($"{i + 1,2}) [");
+                    var old = Console.ForegroundColor;
+                    Console.ForegroundColor = color;
+                    Console.Write(item.Rarity);
+                    Console.ForegroundColor = old;
+                    Console.Write($"] {item.Name}");
+
+                    if (!string.IsNullOrWhiteSpace(item.Description))
+                        Console.Write($" - {item.Description}");
+
+                    Console.WriteLine();
                 }
 
                 Console.WriteLine();
-                Console.WriteLine("[U] Use item   [E] Equip item   [S] Sell item   [X] Exit");
-                Console.Write("\n" + Localization.T("Menu.ChooseOption"));
-                string input = (Console.ReadLine() ?? "").Trim();
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("U = Use    E = Equip    S = Sell    X = Exit");
+                Console.ResetColor();
 
-                if (string.IsNullOrWhiteSpace(input))
+                Console.Write("\n" + Localization.T("Menu.ChooseOption"));
+                var actionInput = (Console.ReadLine() ?? "").Trim().ToUpper();
+
+                if (string.IsNullOrWhiteSpace(actionInput))
                     continue;
 
-                input = input.ToLower();
-
-                if (input == "x")
+                if (actionInput == "X")
                     return;
 
-                // If single-letter command, prompt for index
-                if (input == "u" || input == "e" || input == "s")
+                if (actionInput != "U" && actionInput != "E" && actionInput != "S")
                 {
-                    Console.Write(Localization.T("Menu.ChooseOption"));
-                    var idxInput = (Console.ReadLine() ?? "").Trim();
-                    if (!int.TryParse(idxInput, out int idx) || idx < 1 || idx > _items.Count)
-                    {
-                        Console.WriteLine(Localization.T("Main.InvalidInput"));
-                        Pause();
-                        continue;
-                    }
-
-                    HandleCommand(input, idx, character);
+                    Console.WriteLine(Localization.T("Main.InvalidInput"));
                     Pause();
                     continue;
                 }
 
-                // Handle command with index: e.g. "u 1" or "e 2"
-                var parts = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                if (parts.Length >= 2)
+                Console.Write(Localization.T("Menu.ChooseOption"));
+                var idxInput = (Console.ReadLine() ?? "").Trim();
+                if (!int.TryParse(idxInput, out int idx) || idx < 1 || idx > itemsToShow.Count)
                 {
-                    var cmd = parts[0];
-                    if (!int.TryParse(parts[1], out int idx) || idx < 1 || idx > _items.Count)
-                    {
-                        Console.WriteLine(Localization.T("Main.InvalidInput"));
-                        Pause();
-                        continue;
-                    }
-
-                    HandleCommand(cmd, idx, character);
+                    Console.WriteLine(Localization.T("Main.InvalidInput"));
                     Pause();
                     continue;
                 }
 
-                Console.WriteLine(Localization.T("Main.InvalidInput"));
-                Pause();
-            }
-        }
+                var selected = itemsToShow[idx - 1];
 
-        private void HandleCommand(string cmd, int idx, Character character)
-        {
-            var selected = _items[idx - 1];
-
-            switch (cmd)
-            {
-                case "u":
+                if (actionInput == "U")
+                {
                     Use(selected, character);
-                    break;
+                    // no extra Pause - user already pressed Enter for the index
+                    continue;
+                }
 
-                case "e":
+                if (actionInput == "E")
+                {
                     Equip(selected, character);
-                    break;
+                    // no extra Pause - user already pressed Enter for the index
+                    continue;
+                }
 
-                case "s":
+                if (actionInput == "S")
+                {
                     int price = ShopSystem_GetPrice(selected) / 2;
-
                     Console.WriteLine(Localization.TF("Merchant.SellConfirm", selected.Name, price));
                     Console.Write(Localization.T("Menu.ChooseOption"));
                     var confirm = (Console.ReadLine() ?? "").Trim().ToLower();
-                    if (confirm == "1" || confirm == "y" || confirm == "yes")
+                    if (!(confirm == "1" || confirm == "y" || confirm == "yes"))
                     {
-                        var duplicates = _items.Count(i => i.Name == selected.Name);
-                        if (duplicates > 1)
-                        {
-                            Console.WriteLine(Localization.T("Merchant.SellOfferXP"));
-                            Console.WriteLine("1) Sell for gold");
-                            Console.WriteLine("2) Convert to XP (gain half price in XP)");
-                            Console.Write(Localization.T("Menu.ChooseOption"));
-                            var choice = (Console.ReadLine() ?? "").Trim();
-                            if (choice == "2")
-                            {
-                                int xp = price / 2;
-                                character.AddXP(xp);
-                                Remove(selected);
-                                Console.WriteLine(Localization.TF("Merchant.SoldForXP", selected.Name, xp));
-                                return;
-                            }
-                        }
+                        Pause();
+                        continue;
+                    }
 
-                        Remove(selected);
-                        character.Gold += price;
-                        Console.WriteLine(Localization.TF("Merchant.Sold", selected.Name, price));
+                    var duplicates = _items.Count(i => i.Name == selected.Name && !(i is Gold));
+                    if (duplicates > 1)
+                    {
+                        Console.WriteLine(Localization.T("Merchant.SellOfferXP"));
+                        Console.WriteLine("1) Sell for gold");
+                        Console.WriteLine("2) Convert to XP (gain half price in XP)");
+                        Console.Write(Localization.T("Menu.ChooseOption"));
+                        var choice = (Console.ReadLine() ?? "").Trim();
+                        if (choice == "2")
+                        {
+                            int xp = price / 2;
+                            character.AddXP(xp);
+                            Remove(selected);
+                            Console.WriteLine(Localization.TF("Merchant.SoldForXP", selected.Name, xp));
+                            Pause();
+                            continue;
+                        }
+                    }
+
+                    Remove(selected);
+                    character.Gold += price;
+                    Console.WriteLine(Localization.TF("Merchant.Sold", selected.Name, price));
                     Pause();
                     continue;
-                    }
+                }
             }
         }
 
