@@ -70,6 +70,7 @@
 
         public static void ShowCredits()
         {
+            Console.Clear();
             ShowTitleBanner();
             Console.WriteLine("\nCreated by (GitHub: 1IntereJurry). Powered by imagination.");
             Console.ReadKey(true);

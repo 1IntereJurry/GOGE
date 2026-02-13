@@ -67,17 +67,41 @@ namespace GOGE.Systems
                 Console.WriteLine(Localization.T("Inventory.Equipped"));
                 Console.ResetColor();
 
-                var weaponName = character?.EquippedWeapon?.Name ?? "None";
-                var chestName = character?.EquippedChestplate?.Name ?? "None";
-                var pantsName = character?.EquippedPants?.Name ?? "None";
-                var bootsName = character?.EquippedBoots?.Name ?? "None";
-                var helmetName = character?.EquippedHelmet?.Name ?? "None";
+                // Helper to write equipped item with rarity color
+                void WriteEquipped(string label, Item? it)
+                {
+                    if (it == null)
+                    {
+                        Console.WriteLine($"  {label}: None");
+                        return;
+                    }
 
-                Console.WriteLine("  " + Localization.TF("Inventory.Equipped.Weapon", weaponName));
-                Console.WriteLine("  " + Localization.TF("Inventory.Equipped.Chest", chestName));
-                Console.WriteLine("  " + Localization.TF("Inventory.Equipped.Pants", pantsName));
-                Console.WriteLine("  " + Localization.TF("Inventory.Equipped.Boots", bootsName));
-                Console.WriteLine("  " + Localization.TF("Inventory.Equipped.Helmet", helmetName));
+                    var rarity = (it.Rarity ?? "").ToLower();
+                    var color = rarity switch
+                    {
+                        "common" => ConsoleColor.Gray,
+                        "uncommon" => ConsoleColor.Green,
+                        "rare" => ConsoleColor.Blue,
+                        "epic" => ConsoleColor.Magenta,
+                        "legendary" => ConsoleColor.Yellow,
+                        _ => ConsoleColor.White
+                    };
+
+                    Console.Write($"  {label}: ");
+                    var old = Console.ForegroundColor;
+                    Console.Write($"{it.Name} [");
+                    Console.ForegroundColor = color;
+                    Console.Write(it.Rarity);
+                    Console.ForegroundColor = old;
+                    Console.Write("]");
+                    Console.WriteLine();
+                }
+
+                WriteEquipped("Weapon", character.EquippedWeapon);
+                WriteEquipped("Chest", character.EquippedChestplate);
+                WriteEquipped("Pants", character.EquippedPants);
+                WriteEquipped("Boots", character.EquippedBoots);
+                WriteEquipped("Helmet", character.EquippedHelmet);
 
                 Console.WriteLine();
 
@@ -114,6 +138,9 @@ namespace GOGE.Systems
                     Console.Write(item.Rarity);
                     Console.ForegroundColor = old;
                     Console.Write($"] {item.Name}");
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.Write($" (Type: {item.GetType().Name})");
+                    Console.ForegroundColor = old;
 
                     if (!string.IsNullOrWhiteSpace(item.Description))
                         Console.Write($" - {item.Description}");
