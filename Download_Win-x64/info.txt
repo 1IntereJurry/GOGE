@@ -1,7 +1,0 @@
-Here you can see the .exe for download for Windows (x64) as a standalone, so no .NET is required.
-Due to my limited capacity, I will focus on Windows. I am happy about anyone who shows interest in the project.
-Anyone who would like to help out - whether in the development of the game in any direction or just in troubleshooting the program itself - is very welcome. I am happy about any support.
-I would like to point out that this .exe may not correspond to the current development status. In this case, it can be helpful to download the latest packages and use them to carry out the tests.
-
-Kind regards
-1IntereJurry
