@@ -14,6 +14,7 @@ namespace GOGE.Utils
             return type switch
             {
                 "Weapon" => JsonSerializer.Deserialize<Weapon>(json.GetRawText())!,
+                "Chestplate" => JsonSerializer.Deserialize<ArmorPiece>(json.GetRawText())!,
                 "ArmorPiece" => JsonSerializer.Deserialize<ArmorPiece>(json.GetRawText())!,
                 "Potion" => JsonSerializer.Deserialize<Potion>(json.GetRawText())!,
                 "Artifact" => JsonSerializer.Deserialize<Artifact>(json.GetRawText())!,

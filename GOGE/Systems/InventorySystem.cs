@@ -139,7 +139,10 @@ namespace GOGE.Systems
                     Console.ForegroundColor = old;
                     Console.Write($"] {item.Name}");
                     Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.Write($" (Type: {item.GetType().Name})");
+
+                    // show slot for armor pieces, otherwise show type name
+                    string typeLabel = item is ArmorPiece ap ? ap.Slot.ToString() : item.GetType().Name;
+                    Console.Write($" (Type: {typeLabel})");
                     Console.ForegroundColor = old;
 
                     if (!string.IsNullOrWhiteSpace(item.Description))

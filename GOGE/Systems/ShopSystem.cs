@@ -31,7 +31,28 @@ namespace GOGE.Systems
                 {
                     var it = shopItems[i];
                     var price = GetPrice(it);
-                    Console.WriteLine($"{i + 1}) [{it.Rarity}] {it.Name} - {it.Description} ({Localization.TF("Merchant.Price", price)})");
+
+                    // determine type/slot label (for armor show slot name)
+                    string typeLabel;
+                    if (it is ArmorPiece ap)
+                        typeLabel = ap.Slot.ToString();
+                    else
+                        typeLabel = it.GetType().Name;
+
+                    // print with slot/type in dark gray
+                    var line = $"{i + 1}) [{it.Rarity}] {it.Name}";
+                    if (!string.IsNullOrWhiteSpace(it.Description))
+                        line += $" - {it.Description}";
+                    line += $" ({Localization.TF("Merchant.Price", price)})";
+
+                    Console.Write(line);
+                    // pad then show type/slot in dark gray
+                    var old = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.Write($"  ({typeLabel})");
+                    Console.ForegroundColor = old;
+
+                    Console.WriteLine();
                 }
 
                 Console.WriteLine();

@@ -47,34 +47,46 @@ public static class LootTable
 	};
 
 	// -----------------------------
-	// 2. Armor
+	// 2. Armor Pools by Slot
 	// -----------------------------
-	private static readonly List<ArmorPiece> Armor = new()
+	private static readonly List<ArmorPiece> Helmets = new()
 	{
-        // Common
-        new ArmorPiece("Leather Helmet", 1, "Common"),
+		new ArmorPiece("Leather Cap", 1, "Common"),
+		new ArmorPiece("Cloth Hood", 1, "Common"),
+		new ArmorPiece("Iron Helm", 3, "Uncommon"),
+		new ArmorPiece("Rune Helm", 6, "Rare"),
+		new ArmorPiece("Phoenix Circlet", 9, "Epic"),
+		new ArmorPiece("Helm of the Eternal Watch", 14, "Legendary")
+	};
+
+	private static readonly List<ArmorPiece> Chestplates = new()
+	{
+		new ArmorPiece("Leather Tunic", 1, "Common"),
 		new ArmorPiece("Cloth Robe", 1, "Common"),
-		new ArmorPiece("Old Boots", 1, "Common"),
-
-        // Uncommon
-        new ArmorPiece("Iron Helmet", 3, "Uncommon"),
 		new ArmorPiece("Chainmail", 4, "Uncommon"),
-		new ArmorPiece("Reinforced Leather Gloves", 3, "Uncommon"),
-
-        // Rare
-        new ArmorPiece("Rune Helmet", 6, "Rare"),
 		new ArmorPiece("Plate Armor", 7, "Rare"),
+		new ArmorPiece("Dragonhide Armor", 10, "Epic"),
+		new ArmorPiece("Armor of the Immortal", 15, "Legendary")
+	};
+
+	private static readonly List<ArmorPiece> Pants = new()
+	{
+		new ArmorPiece("Cloth Pants", 1, "Common"),
+		new ArmorPiece("Leather Pants", 1, "Common"),
+		new ArmorPiece("Reinforced Leather Pants", 3, "Uncommon"),
+		new ArmorPiece("Plate Greaves", 6, "Rare"),
+		new ArmorPiece("Titan Legguards", 9, "Epic"),
+		new ArmorPiece("Legplates of Legends", 13, "Legendary")
+	};
+
+	private static readonly List<ArmorPiece> Boots = new()
+	{
+		new ArmorPiece("Old Boots", 1, "Common"),
+		new ArmorPiece("Leather Boots", 1, "Common"),
 		new ArmorPiece("Shadow Boots", 6, "Rare"),
-
-        // Epic
-        new ArmorPiece("Dragonhide Armor", 10, "Epic"),
-		new ArmorPiece("Phoenix Helmet", 9, "Epic"),
-		new ArmorPiece("Titan Gloves", 9, "Epic"),
-
-        // Legendary
-        new ArmorPiece("Armor of the Immortal", 15, "Legendary"),
-		new ArmorPiece("Helm of the Eternal Watch", 14, "Legendary"),
-		new ArmorPiece("Boots of the Voidwalker", 13, "Legendary")
+		new ArmorPiece("Swiftstep Boots", 4, "Uncommon"),
+		new ArmorPiece("Boots of the Voidwalker", 13, "Legendary"),
+		new ArmorPiece("Dragonbone Boots", 9, "Epic")
 	};
 
 	// -----------------------------
@@ -98,6 +110,9 @@ public static class LootTable
 		new Potion("Smoke Bomb", StatusEffect.Escape)
 	};
 
+	// helper to get combined armor pool
+	private static List<ArmorPiece> AllArmor => Helmets.Concat(Chestplates).Concat(Pants).Concat(Boots).ToList();
+
 	// -----------------------------
 	// Loot Selection
 	// -----------------------------
@@ -106,7 +121,11 @@ public static class LootTable
 		int roll = rng.Next(1, 101);
 
 		if (roll <= 50) return Weapons[rng.Next(Weapons.Count)];
-		if (roll <= 85) return Armor[rng.Next(Armor.Count)];
+		if (roll <= 85)
+		{
+			var pool = AllArmor;
+			return pool[rng.Next(pool.Count)];
+		}
 		return Potions[rng.Next(Potions.Count)];
 	}
 
@@ -153,10 +172,10 @@ public static class LootTable
 		}
 		else if (cat <= 85)
 		{
-			// Armor
-			var candidates = Armor.Where(a => string.Equals(a.Rarity, rarity, StringComparison.OrdinalIgnoreCase)).ToList();
-			if (!candidates.Any()) candidates = Armor.ToList();
-			var proto = candidates[rng.Next(candidates.Count)];
+			// Armor - pick from combined armor pool filtered by rarity
+			var pool = AllArmor.Where(a => string.Equals(a.Rarity, rarity, StringComparison.OrdinalIgnoreCase)).ToList();
+			if (!pool.Any()) pool = AllArmor.ToList();
+			var proto = pool[rng.Next(pool.Count)];
 			int scaledArmor = proto.Armor + Math.Max(0, enemyLevel / 3);
 			var piece = new ArmorPiece(proto.Name, scaledArmor, proto.Rarity) { Description = proto.Description };
 			return piece;

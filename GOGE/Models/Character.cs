@@ -33,7 +33,7 @@ namespace GOGE.Models
 
         // XP system
         public int XP { get; set; }
-        public int XPToNextLevel { get; set; } = 100;
+        public int XPToNextLevel { get; set; }
 
         // Core stats
         public int MaxHP { get; set; }
@@ -62,6 +62,10 @@ namespace GOGE.Models
 
         // Inventory
         public List<Item> Inventory { get; set; } = new();
+
+        // XP scaling parameters
+        private const int BaseXPForLevel = 100;
+        private const double XPLevelGrowth = 1.60; // each level requires 40% more XP than previous
 
         // ---------------------------------------------------------
         // CLASS-BASED STAT INITIALIZATION
@@ -121,6 +125,9 @@ namespace GOGE.Models
 
             MaxEnergy = 10;
             CurrentEnergy = MaxEnergy;
+
+            // initialize XP requirement for current level
+            XPToNextLevel = CalculateXPForLevel(Level);
         }
 
         // ---------------------------------------------------------
@@ -128,8 +135,12 @@ namespace GOGE.Models
         // ---------------------------------------------------------
         public void AddXP(int amount)
         {
+            if (amount <= 0)
+                return;
+
             XP += amount;
 
+            // Prevent rapid mass-leveling by recalculating XPToNextLevel on each level up
             while (XP >= XPToNextLevel)
             {
                 XP -= XPToNextLevel;
@@ -140,6 +151,8 @@ namespace GOGE.Models
         private void LevelUp()
         {
             Level++;
+
+            // increase stats on level up
             MaxHP += 10;
             Strength += 2;
             Speed += 1;
@@ -147,7 +160,17 @@ namespace GOGE.Models
 
             CurrentHP = MaxHP;
 
+            // set new XP requirement for next level
+            XPToNextLevel = CalculateXPForLevel(Level);
+
             Console.WriteLine(Localization.TF("Character.LevelUp", Name, Level));
+        }
+
+        private int CalculateXPForLevel(int level)
+        {
+            // exponential growth: BaseXPForLevel * (growth)^(level-1)
+            double xp = BaseXPForLevel * Math.Pow(XPLevelGrowth, Math.Max(0, level - 1));
+            return Math.Max(10, (int)Math.Round(xp));
         }
 
         // ---------------------------------------------------------
@@ -237,8 +260,8 @@ namespace GOGE.Models
             {
                 switch (armor.Slot)
                 {
-                    case ArmorSlot.Feet: EquippedBoots = armor; break;
-                    case ArmorSlot.Legs: EquippedPants = armor; break;
+                    case ArmorSlot.Boots: EquippedBoots = armor; break;
+                    case ArmorSlot.Leggings: EquippedPants = armor; break;
                     case ArmorSlot.Chest: EquippedChestplate = armor; break;
                     case ArmorSlot.Head: EquippedHelmet = armor; break;
                 }
