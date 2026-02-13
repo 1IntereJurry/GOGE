@@ -42,13 +42,15 @@ namespace GOGE.Utils
                 {
                     if (rng.Next(1, 101) <= 50)
                     {
-                        Console.WriteLine(Localization.TF("Event.SparklingPuddle.Success", 10));
-                        player.CurrentHP += 10;
+                        int heal = Math.Max(10, (int)Math.Round(player.MaxHP * 0.15)); // heal 15% of max HP or at least 10
+                        Console.WriteLine(Localization.TF("Event.SparklingPuddle.Success", heal));
+                        player.CurrentHP = Math.Min(player.MaxHP, player.CurrentHP + heal);
                     }
                     else
                     {
-                        Console.WriteLine(Localization.TF("Event.SparklingPuddle.Failure", 10));
-                        player.CurrentHP -= 10;
+                        int dmg = Math.Max(5, (int)Math.Round(player.MaxHP * 0.10));
+                        Console.WriteLine(Localization.TF("Event.SparklingPuddle.Failure", dmg));
+                        player.CurrentHP -= dmg;
                     }
                 }
                 else

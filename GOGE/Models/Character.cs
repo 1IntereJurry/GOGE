@@ -216,7 +216,8 @@ namespace GOGE.Models
 
         public void TakeDamage(int amount)
         {
-            bool dodged = new Random().Next(0, 100) < Dodge;
+            int effectiveDodge = Math.Clamp(Dodge, 0, 50);
+            bool dodged = new Random().Next(0, 100) < effectiveDodge;
 
             if (dodged)
             {

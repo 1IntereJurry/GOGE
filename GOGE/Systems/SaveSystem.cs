@@ -2,6 +2,7 @@
 using GOGE.Utils;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text.Json.Nodes;
 
 namespace GOGE.Systems
 {
@@ -13,8 +14,16 @@ namespace GOGE.Systems
         public class SaveData
         {
             public int Version { get; set; } = CURRENT_VERSION;
+
             public Character Player { get; set; } = null!;
+
+            // Inventory is reconstructed after deserialization. Do not serialize Inventory directly.
+            [JsonIgnore]
             public InventorySystem Inventory { get; set; } = new InventorySystem();
+
+            // Serialized representation of inventory items (JSON strings with type)
+            public List<string> InventoryItems { get; set; } = new();
+
             public string? Location { get; set; }
             public DateTime SaveTime { get; set; } = DateTime.Now;
         }
@@ -44,6 +53,34 @@ namespace GOGE.Systems
                 Location = "Unknown",
                 SaveTime = DateTime.Now
             };
+
+            // serialize inventory items as JSON strings including a 'type' discriminator
+            data.InventoryItems = new List<string>();
+            foreach (var item in inventory.Items)
+            {
+                try
+                {
+                    string serialized = JsonSerializer.Serialize(item, item.GetType());
+                    // parse to JsonNode to inject type
+                    var node = JsonNode.Parse(serialized) as JsonObject ?? new JsonObject();
+                    string typeLabel = item.GetType().Name;
+                    // normalize armor type label
+                    if (item is ArmorPiece) typeLabel = "ArmorPiece";
+
+                    node["type"] = typeLabel;
+                    data.InventoryItems.Add(node.ToJsonString());
+                }
+                catch
+                {
+                    // fallback: serialize simple representation
+                    try
+                    {
+                        var fallback = new JsonObject { ["type"] = item.GetType().Name, ["name"] = item.Name };
+                        data.InventoryItems.Add(fallback.ToJsonString());
+                    }
+                    catch { }
+                }
+            }
 
             var options = new JsonSerializerOptions
             {
@@ -96,6 +133,26 @@ namespace GOGE.Systems
             }
 
             UpgradeSaveData(data);
+
+            // reconstruct InventorySystem from InventoryItems (JSON strings)
+            var inv = new InventorySystem();
+            foreach (var itemJson in data.InventoryItems ?? new List<string>())
+            {
+                try
+                {
+                    using var doc = JsonDocument.Parse(itemJson);
+                    var elem = doc.RootElement.Clone();
+                    var item = ItemFactory.CreateItem(elem);
+                    if (item != null)
+                        inv.Add(item);
+                }
+                catch
+                {
+                    // ignore individual item failures
+                }
+            }
+
+            data.Inventory = inv;
 
             data.Inventory ??= new InventorySystem();
 

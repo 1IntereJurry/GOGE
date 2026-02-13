@@ -63,7 +63,6 @@ namespace GOGE
 
                     case "3":
                         _inventory.ShowInventory(_player);
-                        Pause();
                         break;
 
                     case "4":
