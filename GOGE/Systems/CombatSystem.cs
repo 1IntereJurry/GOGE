@@ -10,11 +10,19 @@ namespace GOGE.Systems
         Escaped
     }
 
+    public enum RunResult
+    {
+        Escaped,
+        Failed,
+        Stumble
+    }
+
     public static class CombatSystem
     {
         public static FightOutcome StartFight(Character player, Enemy enemy, InventorySystem inventory)
         {
             Console.Clear();
+            bool escaped = false;
 
             while (player.CurrentHP > 0 && enemy.CurrentHP > 0)
             {
@@ -37,15 +45,23 @@ namespace GOGE.Systems
                 {
                     case "1":
                         PlayerAttack(player, enemy);
-                        EnemyAttack(player, enemy);
+                        // only let enemy attack if still alive
+                        if (enemy.CurrentHP > 0)
+                            EnemyAttack(player, enemy);
                         break;
 
                     case "2":
                         UsePotion(player, inventory);
+                        // enemy may attack after player uses potion
+                        if (enemy.CurrentHP > 0)
+                            EnemyAttack(player, enemy);
                         break;
 
                     case "3":
-                        if (TryToRun()) // 60 escaping, 30 failing to esvape, 10 critical failure (e.g. death)
+                        // attempt to run with three outcome probabilities
+                        var runResult = TryToRun();
+
+                        if (runResult == RunResult.Escaped)
                         {
                             Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine(Localization.T("Combat.Escape.Success"));
@@ -53,15 +69,33 @@ namespace GOGE.Systems
 
                             Pause();
                             Console.Clear();
-                            return FightOutcome.Escaped;
+                            escaped = true;
                         }
-                        else
+                        else if (runResult == RunResult.Failed)
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine(Localization.T("Combat.Escape.Fail"));
                             Console.ResetColor();
+
+                            // on failed run the enemy gets a free attack
+                            if (enemy.CurrentHP > 0)
+                                EnemyAttack(player, enemy);
+
                             Pause();
                         }
+                        else // Stumble and fall death scenario
+                        {
+                            // special outcome: player falls asleep (instant defeat) for testing
+                            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                            Console.WriteLine("");
+                            Console.ResetColor();
+
+                            // set HP to 0 to trigger defeat handling
+                            player.CurrentHP = 0;
+
+                            Pause();
+                        }
+
                         break;
 
                     default:
@@ -70,7 +104,16 @@ namespace GOGE.Systems
                         break;
                 }
 
+                if (escaped)
+                    break;
+
                 Console.Clear();
+            }
+
+            if (escaped)
+            {
+                // successful escape - do not award loot
+                return FightOutcome.Escaped;
             }
 
             return EndFight(player, enemy, inventory);
@@ -107,9 +150,17 @@ namespace GOGE.Systems
         // ---------------------------------------------------------
         // Run Away
         // ---------------------------------------------------------
-        private static bool TryToRun()
+        private static RunResult TryToRun()
         {
-            return new Random().Next(0, 100) < 50;
+            int roll = new Random().Next(1, 101); // 1..100
+
+            if (roll <= 65)
+                return RunResult.Escaped; 
+
+            if (roll <= 90)
+                return RunResult.Failed;
+
+            return RunResult.Stumble;
         }
 
         // ---------------------------------------------------------
@@ -148,7 +199,7 @@ namespace GOGE.Systems
                 return FightOutcome.Defeat;
             }
 
-            Console.WriteLine(Localization.TF("Combat.EnemyDefeat", enemy.Name)); 
+            Console.WriteLine(Localization.TF("Combat.EnemyDefeat", enemy.Name));
 
             player.AddXP(enemy.XPReward);
             player.Gold += enemy.GoldReward;

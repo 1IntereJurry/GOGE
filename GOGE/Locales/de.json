@@ -60,6 +60,7 @@
   "Combat.Option.Run": "3) Fliehen",
   "Combat.Escape.Success": "Du bist entkommen!",
   "Combat.Escape.Fail": "Du konntest nicht entkommen!",
+  "Combat.Escape.Stumble": "Du stolpert und stürzt woraufhin dein Gegner einen kritischen Treffer landet mit welchem er deine Brust durchbohrt! Dir wird schwarz vor Augen...",
   "Combat.InvalidInput": "Ungültige Eingabe.",
   "Combat.NewEnemy": "Ein wilder {0} erscheint!",
   "Combat.Hit": "Du triffst den/die {0} für {1} Schaden!",

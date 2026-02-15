@@ -60,6 +60,7 @@
   "Combat.Option.Run": "3) Run Away",
   "Combat.Escape.Success": "You escaped!",
   "Combat.Escape.Fail": "You failed to escape!",
+    "Combat.Escape.Stumble": "You stumble and fall, after which your opponent lands a critical hit that pierces your chest! Your vision goes black...",
   "Combat.InvalidInput": "Invalid input.",
   "Combat.NewEnemy": "A wild {0} appears!",
   "Combat.Hit": "You hit the {0} for {1} damage!",
