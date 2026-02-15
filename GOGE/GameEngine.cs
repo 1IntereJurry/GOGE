@@ -25,6 +25,13 @@ namespace GOGE
         {
             while (true)
             {
+                // If player is dead, show death screen and go back to title or quit
+                if (_player.CurrentHP <= 0)
+                {
+                    ShowDeathScreen();
+                    return true;
+                }
+
                 Console.Clear();
                 TextHelper.ShowTitleBanner();
                 Console.WriteLine(Localization.T("Menu.MainTitle"));
@@ -55,10 +62,22 @@ namespace GOGE
                 {
                     case "1":
                         StartNormalFight();
+                        // if player died during the fight, show death screen and return to title
+                        if (_player.CurrentHP <= 0)
+                        {
+                            ShowDeathScreen();
+                            return true;
+                        }
                         break;
 
                     case "2":
                         HandleDungeonSelection();
+                        // if player died in dungeon, ShowDeathScreen will have been called and Environment may have exited
+                        if (_player.CurrentHP <= 0)
+                        {
+                            ShowDeathScreen();
+                            return true;
+                        }
                         break;
 
                     case "3":
@@ -82,6 +101,34 @@ namespace GOGE
             }
         }
 
+        // Show death screen and ask user to return to Main Menu or Quit. If Quit chosen, exit process.
+        private void ShowDeathScreen()
+        {
+            Console.Clear();
+            TextHelper.ShowTitleBanner();
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(Localization.TF("Character.Defeated", _player.Name));
+            Console.ResetColor();
+
+            Console.WriteLine();
+            _player.ShowStats();
+
+            Console.WriteLine();
+            Console.WriteLine("[M] Main Menu    [Q] Quit");
+            Console.Write(Localization.T("Menu.ChooseOption"));
+            var input = (Console.ReadLine() ?? "").Trim().ToLower();
+
+            if (input == "q")
+            {
+                Console.WriteLine("Goodbye...");
+                Thread.Sleep(500);
+                Environment.Exit(0);
+            }
+
+            // otherwise return to main menu by returning from StartGame
+        }
+
         // ---------------------------------------------------------
         // NORMAL FIGHT / EXPLORATION
         // ---------------------------------------------------------
@@ -103,7 +150,13 @@ namespace GOGE
             Enemy enemy = EnemyFactory.CreateEnemy(_player.Level);
             Console.WriteLine($"A {enemy.Name} appears!"); //outsorce localization
 
-            CombatSystem.StartFight(_player, enemy, _inventory);
+            var outcome = CombatSystem.StartFight(_player, enemy, _inventory);
+
+            if (outcome == FightOutcome.Defeat)
+            {
+                // CombatSystem already handles defeat messaging and autosave; just return so StartGame can react
+                return;
+            }
 
             if (rng.Next(1, 101) <= 10)
             {
@@ -145,9 +198,7 @@ namespace GOGE
 
                 if (outcome == FightOutcome.Defeat)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(Localization.T("Character.Defeated"));
-                    Console.ResetColor();
+                    // CombatSystem printed defeat; stop dungeon
                     Pause();
                     return;
                 }
@@ -168,9 +219,6 @@ namespace GOGE
 
             if (bossOutcome == FightOutcome.Defeat)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(Localization.T("Character.Defeated"));
-                Console.ResetColor();
                 Pause();
                 return;
             }

@@ -151,7 +151,9 @@ namespace GOGE.Systems
             InventorySystem inventory = new InventorySystem();
 
             Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(Localization.T("Character.Created"));
+            Console.ResetColor();
             Pause();
 
             return (player, inventory);

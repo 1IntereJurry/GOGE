@@ -45,7 +45,7 @@ namespace GOGE.Systems
                         break;
 
                     case "3":
-                        if (TryToRun())
+                        if (TryToRun()) // 60 escaping, 30 failing to esvape, 10 critical failure (e.g. death)
                         {
                             Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine(Localization.T("Combat.Escape.Success"));

@@ -21,9 +21,9 @@ namespace GOGE.Models
             if (name.Contains("Helmet", StringComparison.OrdinalIgnoreCase) || name.Contains("Helm", StringComparison.OrdinalIgnoreCase) || name.Contains("Cap", StringComparison.OrdinalIgnoreCase) || name.Contains("Hood", StringComparison.OrdinalIgnoreCase))
                 Slot = ArmorSlot.Head;
             else if (name.Contains("Boots", StringComparison.OrdinalIgnoreCase) || name.Contains("Boot", StringComparison.OrdinalIgnoreCase))
-                Slot = ArmorSlot.Boots;
-            else if (name.Contains("Pants", StringComparison.OrdinalIgnoreCase) || name.Contains("Greaves", StringComparison.OrdinalIgnoreCase) || name.Contains("Legs", StringComparison.OrdinalIgnoreCase) || name.Contains("Legguards", StringComparison.OrdinalIgnoreCase))
-                Slot = ArmorSlot.Leggings;
+                Slot = ArmorSlot.Feet;
+            else if (name.Contains("Pants", StringComparison.OrdinalIgnoreCase) || name.Contains("Greaves", StringComparison.OrdinalIgnoreCase) || name.Contains("Legs", StringComparison.OrdinalIgnoreCase) || name.Contains("Legguards", StringComparison.OrdinalIgnoreCase) || name.Contains("Legplates", StringComparison.OrdinalIgnoreCase))
+                Slot = ArmorSlot.Legs;
             else
                 Slot = ArmorSlot.Chest;
 
@@ -31,8 +31,8 @@ namespace GOGE.Models
             Agility = 0;
             Vitality = 0;
 
-            // Basic damage reduction: 5% per armor point, capped at 50%
-            DamageReductionPercent = Math.Min(0.25, armor * 0.025);
+            // Basic damage reduction: 5% per armor point, capped at 25% per piece
+            DamageReductionPercent = Math.Min(0.25, armor * 0.05);
         }
     }
 }

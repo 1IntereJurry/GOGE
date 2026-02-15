@@ -4,7 +4,7 @@ namespace GOGE.Models
     {
         Head,
         Chest,
-        Leggings,
-        Boots
+        Legs,
+        Feet
     }
 }

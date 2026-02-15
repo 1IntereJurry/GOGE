@@ -244,8 +244,7 @@ namespace GOGE.Models
 
             CurrentHP -= reduced;
 
-            if (CurrentHP <= 0)
-                Console.WriteLine(Localization.TF("Character.Defeated", Name));
+            // do not print defeat here; CombatSystem.EndFight handles defeat messaging centrally
         }
 
         // ---------------------------------------------------------
@@ -261,8 +260,8 @@ namespace GOGE.Models
             {
                 switch (armor.Slot)
                 {
-                    case ArmorSlot.Boots: EquippedBoots = armor; break;
-                    case ArmorSlot.Leggings: EquippedPants = armor; break;
+                    case ArmorSlot.Feet: EquippedBoots = armor; break;
+                    case ArmorSlot.Legs: EquippedPants = armor; break;
                     case ArmorSlot.Chest: EquippedChestplate = armor; break;
                     case ArmorSlot.Head: EquippedHelmet = armor; break;
                 }
