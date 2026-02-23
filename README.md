@@ -23,9 +23,9 @@ GOGE is a fully text‑based role‑playing game built in C#. It blends classic 
 **Installation Instructions (Developers)**
 
 *Requirements*
-• 	.NET SDK 6.0 or higher
-• 	Visual Studio, Rider, or VS Code
-• 	Windows CMD or PowerShell
+• 	.NET SDK 6.0 or higher <br />
+• 	Visual Studio, Rider, or VS Code <br />
+• 	Windows CMD or PowerShell <br />
 
 
 *Setup*
