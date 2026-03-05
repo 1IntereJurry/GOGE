@@ -29,7 +29,3 @@ Files added by tooling
 - Docs\README.txt (this file)
 - Tools\publish.ps1 - convenience script to publish and zip for Windows
 - Installer\GOGEInstaller.iss - Inno Setup script template (edit Source paths before compiling)
-
-If you want, I can:
-- Adjust the Inno Setup script to embed the save directory creation or to include an option to migrate existing saves.
-- Create a GitHub Actions workflow to produce the publish artifact automatically.
