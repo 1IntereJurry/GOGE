@@ -45,11 +45,3 @@ GOGE/ <br />
 ├── Utils/            # Helper functions (colors, formatting)  <br />
 ├── GameEngine.cs     # Main game loop and core logic  <br />
 └── Program.cs        # Entry point
-
-#
-
-**Known Issues**
-
-• 	Dungeon generation is static (3 rooms + boss) <br />
-• 	Status effects are not fully integrated <br />
-• 	No Linux/Mac support guaranteed (not tested yet) <br />
