@@ -14,16 +14,16 @@ GOGE is a fully text‑based role‑playing game built in C#. It blends classic 
 • 	.NET Runtime 6.0 or higher (developers only)  <br />
 
 *How to Install*  <br />
-1. 	Download the latest release (ZIP or EXE). <br />
-2. 	Extract the files. <br />
-3. 	Run *GOGE.exe* from the extracted folder. <br />
+1. 	Download the latest release (see: Docs > GOGE-setup.msi). <br />
+2. 	Run installation file, click trough. <br />
+3. 	RUn GOGE Shortcut placed on your desktop to play. <br />
 
 ---
 
 **Installation Instructions (Developers)**
 
 *Requirements*
-• 	.NET SDK 6.0 or higher <br />
+• 	.NET SDK 8.0 or higher <br />
 • 	Visual Studio, Rider, or VS Code <br />
 • 	Windows CMD or PowerShell <br />
 
