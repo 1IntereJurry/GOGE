@@ -155,7 +155,7 @@ namespace GOGE.Systems
             int roll = new Random().Next(1, 101); // 1..100
 
             if (roll <= 65)
-                return RunResult.Escaped; 
+                return RunResult.Escaped;
 
             if (roll <= 90)
                 return RunResult.Failed;
@@ -217,7 +217,7 @@ namespace GOGE.Systems
                 // directly credit gold items
                 foreach (var g in goldItems)
                 {
-                    player.Gold += g.Amount; // note: GoldReward already added above for base gold, this is additional gold drops
+                    player.Gold += g.Amount;
                 }
 
                 if (nonGold.Count > 0)

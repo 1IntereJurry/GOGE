@@ -6,7 +6,6 @@ class Program
 {
     static void Main()
     {
-        // Load localization before any UI text
         Localization.Set(Language.English); // primary language at start-up is automaticly set to English
 
         // Bootup
@@ -32,11 +31,9 @@ class Program
 
             if (returnToTitle)
             {
-                // go back to title screen (MainMenu.Show) on next loop iteration
                 continue;
             }
 
-            // exit application
             break;
         }
     }

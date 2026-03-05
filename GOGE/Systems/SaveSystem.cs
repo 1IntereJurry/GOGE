@@ -1,29 +1,24 @@
 ﻿using GOGE.Models;
 using GOGE.Utils;
 using System.Text.Json;
-using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
 namespace GOGE.Systems
 {
     public static class SaveSystem
     {
-        private static readonly string SaveFolder = "Saves";
+        // Use a per-user application data folder so users don't need admin rights
+        private static readonly string BaseAppData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "GOGE");
+        private static readonly string SaveFolder = Path.Combine(BaseAppData, "Saves");
         private const int CURRENT_VERSION = 3;
 
         public class SaveData
         {
             public int Version { get; set; } = CURRENT_VERSION;
-
             public Character Player { get; set; } = null!;
-
-            // Inventory is reconstructed after deserialization. Do not serialize Inventory directly.
             [JsonIgnore]
             public InventorySystem Inventory { get; set; } = new InventorySystem();
-
-            // Serialized representation of inventory items (JSON strings with type)
             public List<string> InventoryItems { get; set; } = new();
-
             public string? Location { get; set; }
             public DateTime SaveTime { get; set; } = DateTime.Now;
         }
@@ -33,8 +28,16 @@ namespace GOGE.Systems
         // ---------------------------------------------------------
         public static void SaveGame(Character player, InventorySystem inventory, bool isAutoSave = false)
         {
-            if (!Directory.Exists(SaveFolder))
-                Directory.CreateDirectory(SaveFolder);
+            try
+            {
+                if (!Directory.Exists(SaveFolder))
+                    Directory.CreateDirectory(SaveFolder);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Could not create save folder: " + ex.Message);
+                return;
+            }
 
             string timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
 
@@ -61,21 +64,17 @@ namespace GOGE.Systems
                 try
                 {
                     string serialized = JsonSerializer.Serialize(item, item.GetType());
-                    // parse to JsonNode to inject type
-                    var node = JsonNode.Parse(serialized) as JsonObject ?? new JsonObject();
+                    var node = System.Text.Json.Nodes.JsonNode.Parse(serialized) as System.Text.Json.Nodes.JsonObject ?? new System.Text.Json.Nodes.JsonObject();
                     string typeLabel = item.GetType().Name;
-                    // normalize armor type label
                     if (item is ArmorPiece) typeLabel = "ArmorPiece";
-
                     node["type"] = typeLabel;
                     data.InventoryItems.Add(node.ToJsonString());
                 }
                 catch
                 {
-                    // fallback: serialize simple representation
                     try
                     {
-                        var fallback = new JsonObject { ["type"] = item.GetType().Name, ["name"] = item.Name };
+                        var fallback = new System.Text.Json.Nodes.JsonObject { ["type"] = item.GetType().Name, ["name"] = item.Name };
                         data.InventoryItems.Add(fallback.ToJsonString());
                     }
                     catch { }
@@ -88,8 +87,16 @@ namespace GOGE.Systems
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
             };
 
-            string json = JsonSerializer.Serialize(data, options);
-            File.WriteAllText(path, json);
+            try
+            {
+                string json = JsonSerializer.Serialize(data, options);
+                File.WriteAllText(path, json);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed to save game: " + ex.Message);
+                return;
+            }
 
             if (!isAutoSave)
                 Console.WriteLine(Localization.TF("Save.Saved", safeName));
@@ -185,8 +192,15 @@ namespace GOGE.Systems
         // ---------------------------------------------------------
         public static List<string> GetSaveFiles()
         {
-            if (!Directory.Exists(SaveFolder))
+            try
+            {
+                if (!Directory.Exists(SaveFolder))
+                    Directory.CreateDirectory(SaveFolder);
+            }
+            catch
+            {
                 return new List<string>();
+            }
 
             return Directory.GetFiles(SaveFolder, "*.json")
                             .Select(f => Path.GetFileNameWithoutExtension(f))
@@ -198,8 +212,16 @@ namespace GOGE.Systems
         // ---------------------------------------------------------
         public static List<string> GetAutoSaves()
         {
-            if (!Directory.Exists(SaveFolder))
-                Directory.CreateDirectory(SaveFolder);
+            try
+            {
+                if (!Directory.Exists(SaveFolder))
+                    Directory.CreateDirectory(SaveFolder);
+            }
+            catch
+            {
+                return new List<string>();
+            }
+
             return Directory.GetFiles(SaveFolder, "*.json")
                 .Where(f => Path.GetFileName(f).StartsWith("AUTO -"))
                 .OrderByDescending(f => File.GetCreationTime(f))
@@ -210,8 +232,16 @@ namespace GOGE.Systems
 
         public static List<string> GetManualSaves()
         {
-            if (!Directory.Exists(SaveFolder))
-                Directory.CreateDirectory(SaveFolder);
+            try
+            {
+                if (!Directory.Exists(SaveFolder))
+                    Directory.CreateDirectory(SaveFolder);
+            }
+            catch
+            {
+                return new List<string>();
+            }
+
             return Directory.GetFiles(SaveFolder, "*.json")
                 .Where(f => !Path.GetFileName(f).StartsWith("AUTO -"))
                 .OrderByDescending(f => File.GetCreationTime(f))
@@ -224,6 +254,16 @@ namespace GOGE.Systems
         // ---------------------------------------------------------
         public static void DeleteOldAutoSavesForPlayer(string playerName)
         {
+            try
+            {
+                if (!Directory.Exists(SaveFolder))
+                    Directory.CreateDirectory(SaveFolder);
+            }
+            catch
+            {
+                return;
+            }
+
             var autoSaveFiles = Directory.GetFiles(SaveFolder, "*.json")
                 .Where(f => Path.GetFileName(f).StartsWith("AUTO -"))
                 .OrderByDescending(f => File.GetCreationTime(f))
@@ -256,6 +296,16 @@ namespace GOGE.Systems
         // ---------------------------------------------------------
         public static bool DeleteSave(string fileName)
         {
+            try
+            {
+                if (!Directory.Exists(SaveFolder))
+                    Directory.CreateDirectory(SaveFolder);
+            }
+            catch
+            {
+                return false;
+            }
+
             string path = Path.Combine(SaveFolder, $"{fileName}.json");
 
             if (!File.Exists(path))

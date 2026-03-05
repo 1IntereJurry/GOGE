@@ -22,7 +22,7 @@ namespace GOGE.Systems
             while (true)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine(Localization.TF("Character.Label.Name", player.Name) + $", (Lv {player.Level}),  XP: {player.XP}/{player.XPToNextLevel}, Gold: {player.Gold}");
+                Console.WriteLine(Localization.TF("Character.Label.Name", player.Name) + $", (Lv {player.Level}), XP: {player.XP}/{player.XPToNextLevel}, Gold: {player.Gold}");
                 Console.ResetColor();
                 Console.WriteLine();
 
