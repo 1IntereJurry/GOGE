@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GOGE // System_Interface</title>
+    <link rel="icon" type="image/png" href="Icon_GOGE.png">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
 </head>
@@ -23,16 +24,21 @@
 
     <main class="container">
         <section id="home" class="hero-section">
-            <div class="glitch-wrapper">
-                <h1 class="main-title">SYSTEM_GOGE</h1>
-            </div>
-            <p class="subtitle">A C#-powered console odyssey. Pure logic. Zero overhead.</p>
-            
-            <div class="download-zone">
-                <a href="GOGE-setup.msi" class="cyber-button" download>
-                    FETCH_INSTALLER.MSI
-                </a>
-                <p class="file-info">File: GOGE-setup.msi | OS: Windows (x64) | Size: > 30MB</p>
+            <div class="hero-container">
+                <div class="hero-text">
+                    <h1 class="main-title">SYSTEM_GOGE</h1>
+                    <p class="subtitle">A C#-powered console odyssey. Experience the grid in motion.</p>
+                    <div class="download-zone">
+                        <a href="GOGE-setup.msi" class="cyber-button" download>FETCH_INSTALLER.MSI</a>
+                        <p class="file-info">File: GOGE-setup.msi | OS: Windows (x64)</p>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="terminal-card preview-box">
+                        <div class="terminal-header">live_execution_preview.gif</div>
+                        <img src="GOEG_gameplay-gif.gif" alt="GOGE Gameplay" class="game-gif">
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -43,61 +49,43 @@
             <div class="terminal-card">
                 <div class="terminal-header">setup.exe --instruction-mode</div>
                 <div class="terminal-content">
-                    <p><span class="prompt">></span> Download the <strong>GOGE-setup.msi</strong> above.</p>
-                    <p><span class="prompt">></span> Run the installer. If Windows SmartScreen warns you, select 'More Info' & 'Run Anyway'.</p>
-                    <p><span class="prompt">></span> Follow the Setup Wizard. Required: <strong>.NET 8.0 Runtime</strong>.</p>
-                    <p><span class="prompt">></span> Deployment complete. Launch via Desktop Shortcut.</p>
+                    <p><span class="prompt">></span> Download the <strong>GOGE-setup.msi</strong> via the button above.</p>
+                    <p><span class="prompt">></span> Run the installer. (Select 'More Info' & 'Run Anyway' if prompted).</p>
+                    <p><span class="prompt">></span> Requirement: <strong>.NET 8.0 Runtime</strong> must be active.</p>
                 </div>
             </div>
         </section>
 
         <section id="developer">
-            <h2 class="section-header">[02] SOURCE_CONTROL_&_PROFILE</h2>
+            <h2 class="section-header">[02] SOURCE_&_SUPPORT</h2>
             <div class="dev-grid">
                 <div class="dev-card">
                     <h3>Project Repository</h3>
-                    <p>The entire GOGE codebase is open-source. Dive into the C# logic or contribute to the grid.</p>
+                    <p>The entire GOGE codebase is open-source. Dive into the logic.</p>
                     <a href="https://github.com/1IntereJurry/GOGE" target="_blank" class="cyber-link">> ACCESS_GOGE_REPO</a>
                 </div>
-                
                 <div class="dev-card">
                     <h3>The Developer</h3>
-                    <p>Maintained by <strong>1IntereJurry</strong>. Check out my other projects and repositories on GitHub.</p>
+                    <p>Maintained by <strong>1IntereJurry</strong>. Check my other work.</p>
                     <a href="https://github.com/1IntereJurry" target="_blank" class="cyber-link">> VIEW_DEV_PROFILE</a>
                 </div>
-
-                <div class="dev-card">
-                    <h3>Tech Stack</h3>
-                    <ul class="tech-list">
-                        <li>- Language: C# 12.0</li>
-                        <li>- Framework: .NET 8.0</li>
-                        <li>- Architecture: Modular Command-Pattern</li>
-                    </ul>
+                <div class="dev-card highlight-card">
+                    <h3>Found a Bug?</h3>
+                    <p>Help me improve GOGE. Report any crashes or glitches here.</p>
+                    <a href="https://github.com/1IntereJurry/GOGE/issues/new" target="_blank" class="cyber-link red-link">> REPORT_ISSUE_TICKET</a>
                 </div>
             </div>
         </section>
 
         <section id="specs">
-            <h2 class="section-header">[03] SYSTEM_LOGS_&_FAQ</h2>
-            <div class="grid-2">
-                <div class="terminal-card">
-                    <div class="terminal-header">sys_requirements.log</div>
-                    <table class="specs-table">
-                        <tr><td>OS</td><td>Windows 10 / 11</td></tr>
-                        <tr><td>CPU</td><td>x64 Architecture</td></tr>
-                        <tr><td>NET</td><td>.NET 8.0 Runtime</td></tr>
-                    </table>
-                </div>
-                <div class="faq-box">
-                    <div class="faq-item">
-                        <span class="q">Q: Is it safe?</span>
-                        <p class="a">Yes. It's open source. Windows warns you only because the MSI isn't digitally signed with a paid certificate.</p>
-                    </div>
-                    <div class="faq-item">
-                        <span class="q">Q: Console window too small?</span>
-                        <p class="a">Right-click the title bar -> Properties -> Font to adjust the size.</p>
-                    </div>
-                </div>
+            <h2 class="section-header">[03] SYSTEM_LOGS</h2>
+            <div class="terminal-card">
+                <div class="terminal-header">sys_requirements.log</div>
+                <table class="specs-table">
+                    <tr><td>OS</td><td>Windows 10 / 11 (64-bit)</td></tr>
+                    <tr><td>RUNTIME</td><td>.NET 8.0 Desktop Runtime</td></tr>
+                    <tr><td>UI</td><td>Standard Command Prompt / Windows Terminal</td></tr>
+                </table>
             </div>
         </section>
     </main>
