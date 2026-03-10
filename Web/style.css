@@ -95,3 +95,65 @@ footer { text-align: center; padding: 60px 0; color: #444; font-size: 0.7rem; bo
     .hero-container { flex-direction: column; text-align: center; }
     .main-title { font-size: 2.5rem; }
 }
+
+/* --- HAMBURGER MENU LOGIC --- */
+
+/* Verstecke die Checkbox und das Icon standardmäßig (Desktop) */
+#menu-toggle, .menu-icon {
+    display: none;
+}
+
+/* Mobile Styling (ab 850px Breite) */
+@media (max-width: 850px) {
+    .menu-icon {
+        display: block;
+        font-size: 1.8rem;
+        color: var(--neon-green);
+        cursor: pointer;
+        z-index: 101;
+    }
+
+    nav {
+        display: none; /* Versteckt die Liste auf dem Handy */
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--terminal-grey);
+        flex-direction: column;
+        padding: 20px 0;
+        border-bottom: 2px solid var(--neon-green);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
+
+    /* Wenn die Checkbox angeklickt ist, zeige NAV */
+    #menu-toggle:checked ~ nav {
+        display: flex;
+    }
+
+    nav a {
+        margin: 15px 0;
+        font-size: 1.1rem;
+        width: 100%;
+        text-align: center;
+    }
+
+    .dev-link-nav {
+        border: none;
+        color: var(--accent-blue) !important;
+    }
+}
+
+/* Desktop Header (Sicherstellen, dass alles nebeneinander bleibt) */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background: rgba(10, 10, 11, 0.95);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--border-color);
+    backdrop-filter: blur(8px);
+}
