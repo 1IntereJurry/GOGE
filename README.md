@@ -1,47 +1,56 @@
-# GOGE – A Console‑Based RPG Adventure
-A lightweight, text‑driven RPG running entirely in the Windows console.
+# GOGE // System_Interface
 
-**Introduction**
-
-GOGE is a fully text‑based role‑playing game built in C#. It blends classic RPG mechanics—combat, dungeons, loot, leveling, and character progression—into a nostalgic command‑line experience. The project is modular, easy to extend, and designed to be both a learning resource for new developers and a foundation for more advanced RPG systems. Its architecture separates gameplay logic, data models, and utility functions to ensure long‑term maintainability.
-
-#
-
-**Installation Instructions (Users)**
-
-*Requirements* <br />
-• 	Windows 10 or later  <br />
-• 	.NET Runtime 6.0 or higher (developers only)  <br />
-
-*How to Install*  <br />
-1. 	Download the latest release (see: Docs > GOGE-setup.msi). <br />
-2. 	Run installation file, click trough. <br />
-3. 	RUn GOGE Shortcut placed on your desktop to play. <br />
+> Status: Operational
+> Type: C#-powered Console Odyssey
+> Deployment: Self-Contained x64
 
 ---
 
-**Installation Instructions (Developers)**
+## Project Overview
+GOGE is a logic-driven terminal adventure developed in C#. The project was designed with a focus on efficiency and a pure console experience. No unnecessary dependencies, no overhead – just pure code.
 
-*Requirements*
-• 	.NET SDK 8.0 or higher <br />
-• 	Visual Studio, Rider, or VS Code <br />
-• 	Windows CMD or PowerShell <br />
-
-
-*Setup*
-
-git clone https://github.com/1IntereJurry/GOGE.git <br />
-cd GOGE  <br />
-dotnet build  <br />
-dotnet run  <br />
+🔗 Live Website: 1IntereJurry.github.io/GOGE/Web/index.html
 
 ---
 
-**Project Structure:**
+## Execution Guide (Users)
+The game is delivered as a self-contained package. No additional runtimes or frameworks need to be installed manually.
 
-GOGE/ <br />
-├── Models/           # Characters, enemies, items, weapons, armor <br />
-├── Systems/          # Combat, events, menus, save/load logic  <br />
-├── Utils/            # Helper functions (colors, formatting)  <br />
-├── GameEngine.cs     # Main game loop and core logic  <br />
-└── Program.cs        # Entry point
+1. Navigate to the /Web folder or use the link on the website.
+2. Download GOGE-setup.msi.
+3. Run the installer.
+4. Launch GOGE via the generated shortcut.
+
+Note: If Windows SmartScreen displays a warning, select "More info" -> "Run anyway".
+
+---
+
+## Developer Log (Technical Specs)
+Specifications for core analysis or extension:
+
+- Language: C# 12.0
+- Framework: .NET 8.0
+- Architecture: x64
+- Build-Type: Self-Contained
+- IDE: Visual Studio 2022
+
+### Repository Structure
+- /GOGE: C# source code of the game.
+- /Web: Source code of the landing page (HTML/CSS/JS).
+- /Tools: Utility scripts.
+
+---
+
+## Changelog
+### Full commit list see here:
+
+https://github.com/1IntereJurry/GOGE/commits/master/
+
+---
+
+## License & Support
+Developed by 1IntereJurry.
+Please submit bug reports or feedback via the GitHub Issues section.
+
+---
+TERMINAL_SESSION_ACTIVE // 2026
