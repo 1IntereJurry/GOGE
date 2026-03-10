@@ -57,13 +57,28 @@
         <hr class="divider">
 
         <section id="install">
-            <h2 class="section-header">[01] INSTALLATION_PROCEDURE</h2>
-            <div class="terminal-card">
-                <div class="terminal-header">setup.exe --instruction-mode</div>
-                <div class="terminal-content">
-                    <p><span class="prompt">></span> Download <strong>GOGE-setup.msi</strong>.</p>
-                    <p><span class="prompt">></span> Run Installer (Select 'More Info' -> 'Run Anyway' if blocked).</p>
-                    <p><span class="prompt">></span> Required: <strong>.NET 8.0 Desktop Runtime</strong>.</p>
+            <h2 class="section-header">[01] EXECUTION_PROTOCOL</h2>
+            <div class="dual-grid">
+                <div class="terminal-card path-card">
+                    <div class="terminal-header">target: end_user</div>
+                    <div class="terminal-content">
+                        <p class="path-title">STANDARD_INSTALL</p>
+                        <p><span class="prompt">></span> Download <strong>GOGE-setup.msi</strong>.</p>
+                        <p><span class="prompt">></span> Run the installer.</p>
+                        <p><span class="prompt">></span> <strong class="highlight-green">No dependencies required.</strong> (Self-contained execution).</p>
+                        <p class="note-text">Note: If Windows SmartScreen appears, click 'More Info' -> 'Run Anyway'.</p>
+                    </div>
+                </div>
+
+                <div class="terminal-card path-card dev-border">
+                    <div class="terminal-header">target: developer_log</div>
+                    <div class="terminal-content">
+                        <p class="path-title">SOURCE_SPECIFICATIONS</p>
+                        <p><span class="prompt">></span> Built with <strong>C# / .NET 8.0</strong>.</p>
+                        <p><span class="prompt">></span> Architecture: <strong>x64</strong>.</p>
+                        <p><span class="prompt">></span> Deployment: <strong>Self-Contained</strong> (Runtime included in binary).</p>
+                        <p><span class="prompt">></span> IDE: Visual Studio 2022 recommended.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -107,3 +122,4 @@
     </script>
 </body>
 </html>
+
