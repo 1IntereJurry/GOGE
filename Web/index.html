@@ -42,8 +42,11 @@
                     <div class="terminal-card preview-box" id="gif-container" onclick="playGif()">
                         <div class="terminal-header" id="gif-status">status: paused (click to execute)</div>
                         <div class="gif-wrapper">
-                            <img src="Icon_GOGE.png" id="preview-img" alt="GOGE Preview" class="game-gif paused">
-                            <div class="play-overlay" id="play-btn"><span>&#9658; LOAD_GIF</span></div>
+                            <img src="GOGE_preview-static.png" id="preview-img" alt="GOGE Preview" class="game-gif paused">
+                            <div class="play-overlay" id="play-btn">
+                                <span class="play-icon">&#9658;</span>
+                                <span class="play-text">LOAD_GIF</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -98,10 +101,11 @@
             const overlay = document.getElementById('play-btn');
             
             if (!container.classList.contains('playing')) {
-                img.src = "GOGE_gameplay-gif.gif"; // Lädt das GIF erst bei Klick
+                // Tauscht das statische Bild gegen das echte GIF aus
+                img.src = "GOGE_gameplay-gif.gif"; 
                 img.classList.remove('paused');
                 container.classList.add('playing');
-                overlay.style.display = "none";
+                overlay.style.display = "none"; // Versteckt das Pause-Symbol
                 status.innerText = "status: executing_preview.gif";
             }
         }
