@@ -121,3 +121,13 @@ header {
     .nav-menu a { margin: 15px 0; width: 100%; text-align: center; margin-left: 0; font-size: 1.2rem; }
     .hero-container { flex-direction: column; text-align: center; }
 }
+
+footer {
+    text-align: center;      /* Zentriert den Text horizontal */
+    padding: 60px 0 30px;    /* Abstand nach oben und unten */
+    color: #555;             /* Ein dunkles Grau, damit es dezent wirkt */
+    font-size: 0.75rem;      /* Etwas kleinere Schrift */
+    letter-spacing: 1px;     /* Mehr Abstand zwischen den Buchstaben für den Terminal-Look */
+    border-top: 1px solid #111; /* Eine sehr feine Trennlinie zum restlichen Content */
+    width: 100%;
+}
