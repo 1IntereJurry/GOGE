@@ -1,7 +1,7 @@
 # GOGE // System_Interface
 
-> Status: Operational
-> Type: C#-powered Console Odyssey
+> Status: Operational <br>
+> Type: C#-powered Console Odyssey <br>
 > Deployment: Self-Contained x64
 
 ---
