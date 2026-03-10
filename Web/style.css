@@ -70,35 +70,35 @@ header {
 
 /* Styling für das pausierte Standbild */
 .game-gif.paused { 
-    filter: brightness(0.5) blur(1px); 
-    transform: scale(1.02); /* Leichter Zoom-Effekt */
+    filter: brightness(0.6) blur(1px); 
 }
 
 .preview-box { border-color: var(--neon-green); box-shadow: 0 0 20px rgba(0, 255, 136, 0.1); }
 
-/* Das Pause/Play Overlay */
+/* Das symbolische Play-Overlay */
 .play-overlay {
     position: absolute; 
     top: 50%; left: 50%; 
     transform: translate(-50%, -50%);
-    border: 2px solid var(--neon-green); 
     color: var(--neon-green);
-    padding: 15px 25px; 
-    font-family: 'Orbitron', sans-serif; 
-    background: rgba(0,0,0,0.7);
-    text-align: center;
-    border-radius: 4px;
+    background: rgba(0,0,0,0.5); /* Halb-transparenter schwarzer Kreis */
+    width: 80px; height: 80px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; /* Macht es kreisrund */
+    border: 2px solid rgba(0, 255, 136, 0.5);
     transition: 0.3s;
-    box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+    opacity: 0.8; /* Standardmäßig leicht transparent */
 }
 
+/* Hover-Effekt für das Symbol */
 .gif-wrapper:hover .play-overlay {
-    background: rgba(0, 255, 136, 0.1);
-    box-shadow: 0 0 25px rgba(0, 255, 136, 0.5);
+    opacity: 1; /* Volle Sichtbarkeit */
+    background: rgba(0, 255, 136, 0.15);
+    border-color: var(--neon-green);
+    box-shadow: 0 0 25px rgba(0, 255, 136, 0.6);
 }
 
-.play-icon { font-size: 1.2rem; display: block; margin-bottom: 5px; }
-.play-text { font-size: 0.7rem; letter-spacing: 1px; }
+.play-icon { font-size: 2.5rem; } /* Großes Play-Symbol */
 
 /* Buttons */
 .cyber-button {
