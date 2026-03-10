@@ -1,0 +1,126 @@
+/* General Styling & Dark Theme */
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    margin: 0; 
+    padding: 0; 
+    background-color: #121212; 
+    color: #e0e0e0; 
+}
+
+html { 
+    scroll-behavior: smooth; 
+}
+
+/* Navigation Bar */
+header { 
+    background-color: #1f1f1f; 
+    padding: 20px 50px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    position: sticky; 
+    top: 0; 
+    z-index: 1000; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3); 
+}
+
+header h1 { 
+    margin: 0; 
+    font-size: 28px; 
+    color: #00ff88; 
+}
+
+nav a { 
+    color: #ffffff; 
+    text-decoration: none; 
+    margin-left: 25px; 
+    font-weight: 500; 
+    transition: color 0.3s; 
+}
+
+nav a:hover { 
+    color: #00ff88; 
+}
+
+/* Hero Section */
+.hero { 
+    text-align: center; 
+    padding: 120px 20px; 
+    background: linear-gradient(145deg, #1f1f1f 0%, #0a0a0a 100%); 
+    border-bottom: 1px solid #333; 
+}
+
+.hero h2 { 
+    font-size: 56px; 
+    margin-bottom: 10px; 
+    color: #ffffff;
+}
+
+.hero p { 
+    font-size: 22px; 
+    color: #aaaaaa; 
+    margin-bottom: 40px; 
+}
+
+/* Button Styling */
+.btn { 
+    background-color: #00ff88; 
+    color: #121212; 
+    padding: 15px 40px; 
+    text-decoration: none; 
+    font-size: 20px; 
+    border-radius: 8px; 
+    font-weight: bold; 
+    transition: all 0.3s ease; 
+    display: inline-block; 
+    box-shadow: 0 4px 15px rgba(0, 255, 136, 0.4);
+}
+
+.btn:hover { 
+    background-color: #00cc6a; 
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 136, 0.6);
+}
+
+/* Content Sections */
+section { 
+    padding: 80px 50px; 
+    max-width: 900px; 
+    margin: 0 auto; 
+    line-height: 1.8; 
+    min-height: 50vh;
+}
+
+section h2 { 
+    color: #00ff88; 
+    border-bottom: 2px solid #333; 
+    padding-bottom: 10px; 
+    font-size: 32px;
+}
+
+/* Developer Info Box */
+.dev-box { 
+    background-color: #1f1f1f; 
+    padding: 25px; 
+    border-radius: 8px; 
+    margin-top: 30px; 
+    border-left: 5px solid #00ff88; 
+}
+
+.dev-box a {
+    color: #00ff88;
+    text-decoration: none;
+}
+
+.dev-box a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+footer { 
+    text-align: center; 
+    padding: 30px; 
+    background-color: #0a0a0a; 
+    color: #666; 
+    margin-top: 40px; 
+}
