@@ -13,34 +13,38 @@
     <div class="scanline"></div>
 
     <header>
-    <div class="logo">GOGE</div>
-    
-    <input type="checkbox" id="menu-toggle" class="menu-checkbox">
-    <label for="menu-toggle" class="menu-icon"><span>&#9776;</span></label>
-    
-    <nav class="nav-menu">
-        <a href="#home">// HOME</a>
-        <a href="#install">// INSTALL</a>
-        <a href="#developer">// DEVELOPER</a>
-        <a href="https://github.com/1IntereJurry" target="_blank" class="dev-link-nav">@1IntereJurry</a>
-    </nav>
-</header>
+        <div class="logo">GOGE</div>
+        
+        <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+        <label for="menu-toggle" class="menu-icon"><span>&#9776;</span></label>
+        
+        <nav class="nav-menu">
+            <a href="#home">// HOME</a>
+            <a href="#install">// INSTALL</a>
+            <a href="#developer">// DEVELOPER</a>
+            <a href="https://github.com/1IntereJurry" target="_blank" class="dev-link-nav">@1IntereJurry</a>
+        </nav>
+    </header>
 
     <main class="container">
         <section id="home" class="hero-section">
             <div class="hero-container">
                 <div class="hero-text">
                     <h1 class="main-title">SYSTEM_GOGE</h1>
-                    <p class="subtitle">A C#-powered console odyssey. Experience the grid in motion.</p>
+                    <p class="subtitle">A C#-powered console odyssey. Logic-driven execution.</p>
                     <div class="download-zone">
                         <a href="GOGE-setup.msi" class="cyber-button" download>FETCH_INSTALLER.MSI</a>
-                        <p class="file-info">File: GOGE-setup.msi | OS: Windows (x64)</p>
+                        <p class="file-info">Version: 1.0.0 | OS: Windows (x64)</p>
                     </div>
                 </div>
+
                 <div class="hero-visual">
-                    <div class="terminal-card preview-box">
-                        <div class="terminal-header">live_execution_preview.gif</div>
-                        <img src="GOGE_gameplay-gif.gif" alt="GOGE Gameplay" class="game-gif">
+                    <div class="terminal-card preview-box" id="gif-container" onclick="playGif()">
+                        <div class="terminal-header" id="gif-status">status: paused (click to execute)</div>
+                        <div class="gif-wrapper">
+                            <img src="Icon_GOGE.png" id="preview-img" alt="GOGE Preview" class="game-gif paused">
+                            <div class="play-overlay" id="play-btn"><span>&#9658; LOAD_GIF</span></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -53,9 +57,9 @@
             <div class="terminal-card">
                 <div class="terminal-header">setup.exe --instruction-mode</div>
                 <div class="terminal-content">
-                    <p><span class="prompt">></span> Download the <strong>GOGE-setup.msi</strong> via the button above.</p>
-                    <p><span class="prompt">></span> Run the installer. (Select 'More Info' & 'Run Anyway' if prompted).</p>
-                    <p><span class="prompt">></span> Requirement: <strong>.NET 8.0 Runtime</strong> must be active.</p>
+                    <p><span class="prompt">></span> Download <strong>GOGE-setup.msi</strong>.</p>
+                    <p><span class="prompt">></span> Run Installer (Select 'More Info' -> 'Run Anyway' if blocked).</p>
+                    <p><span class="prompt">></span> Required: <strong>.NET 8.0 Desktop Runtime</strong>.</p>
                 </div>
             </div>
         </section>
@@ -64,42 +68,43 @@
             <h2 class="section-header">[02] SOURCE_&_SUPPORT</h2>
             <div class="dev-grid">
                 <div class="dev-card">
-                    <h3>Project Repository</h3>
-                    <p>The entire GOGE codebase is open-source. Dive into the logic.</p>
+                    <h3>Repository</h3>
+                    <p>Open-source C# core. View the logic on GitHub.</p>
                     <a href="https://github.com/1IntereJurry/GOGE" target="_blank" class="cyber-link">> ACCESS_GOGE_REPO</a>
                 </div>
                 <div class="dev-card">
-                    <h3>The Developer</h3>
-                    <p>Maintained by <strong>1IntereJurry</strong>. Check my other work.</p>
-                    <a href="https://github.com/1IntereJurry" target="_blank" class="cyber-link">> VIEW_DEV_PROFILE</a>
+                    <h3>Dev Profile</h3>
+                    <p>Built by 1IntereJurry. See more projects.</p>
+                    <a href="https://github.com/1IntereJurry" target="_blank" class="cyber-link">> VIEW_PROFILE</a>
                 </div>
                 <div class="dev-card highlight-card">
-                    <h3>Found a Bug?</h3>
-                    <p>Help me improve GOGE. Report any crashes or glitches here.</p>
-                    <a href="https://github.com/1IntereJurry/GOGE/issues/new" target="_blank" class="cyber-link red-link">> REPORT_ISSUE_TICKET</a>
+                    <h3>Report Issues</h3>
+                    <p>Help me fix bugs. Open a ticket for any crashes.</p>
+                    <a href="https://github.com/1IntereJurry/GOGE/issues/new" target="_blank" class="cyber-link red-link">> REPORT_ISSUE</a>
                 </div>
-            </div>
-        </section>
-
-        <section id="specs">
-            <h2 class="section-header">[03] SYSTEM_LOGS</h2>
-            <div class="terminal-card">
-                <div class="terminal-header">sys_requirements.log</div>
-                <table class="specs-table">
-                    <tr><td>OS</td><td>Windows 10 / 11 (64-bit)</td></tr>
-                    <tr><td>RUNTIME</td><td>.NET 8.0 Desktop Runtime</td></tr>
-                    <tr><td>UI</td><td>Standard Command Prompt / Windows Terminal</td></tr>
-                </table>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>TERMINAL_SESSION_ENCRYPTED // 2026 // DEVELOPED BY 1INTEREJURRY</p>
+        <p>TERMINAL_SESSION_ACTIVE // 2026 // 1INTEREJURRY</p>
     </footer>
 
+    <script>
+        function playGif() {
+            const container = document.getElementById('gif-container');
+            const img = document.getElementById('preview-img');
+            const status = document.getElementById('gif-status');
+            const overlay = document.getElementById('play-btn');
+            
+            if (!container.classList.contains('playing')) {
+                img.src = "GOGE_gameplay-gif.gif"; // Lädt das GIF erst bei Klick
+                img.classList.remove('paused');
+                container.classList.add('playing');
+                overlay.style.display = "none";
+                status.innerText = "status: executing_preview.gif";
+            }
+        }
+    </script>
 </body>
 </html>
-
-
-
