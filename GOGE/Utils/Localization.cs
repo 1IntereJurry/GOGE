@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Reflection;
 
 namespace GOGE.Utils
 {
@@ -32,17 +33,44 @@ namespace GOGE.Utils
             string fileName = lang == Language.German ? "de.json" : "en.json";
             string path = Path.Combine(folder, fileName);
 
-            if (!File.Exists(path))
+            string? json = null;
+
+            if (File.Exists(path))
             {
-                // fallback to english
-                path = Path.Combine(folder, "en.json");
-                if (!File.Exists(path))
-                    return;
+                try { json = File.ReadAllText(path); }
+                catch { json = null; }
             }
+
+            if (json == null)
+            {
+                // try embedded resource (useful for single-file publish or installer packaging)
+                try
+                {
+                    var asm = Assembly.GetExecutingAssembly();
+                    var resourceSuffix = $"locales.{fileName}".ToLowerInvariant();
+                    var res = asm.GetManifestResourceNames()
+                                 .FirstOrDefault(n => n.ToLowerInvariant().EndsWith(resourceSuffix));
+                    if (res != null)
+                    {
+                        using var stream = asm.GetManifestResourceStream(res);
+                        if (stream != null)
+                        {
+                            using var reader = new StreamReader(stream);
+                            json = reader.ReadToEnd();
+                        }
+                    }
+                }
+                catch
+                {
+                    json = null;
+                }
+            }
+
+            if (string.IsNullOrEmpty(json))
+                return;
 
             try
             {
-                string json = File.ReadAllText(path);
                 var doc = JsonSerializer.Deserialize<Dictionary<string, string>>(json)
                           ?? new Dictionary<string, string>();
                 foreach (var kv in doc)

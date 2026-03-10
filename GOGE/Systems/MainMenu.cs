@@ -12,6 +12,13 @@ namespace GOGE.Systems
                 TextHelper.ShowTitleScreen();
                 string input = Console.ReadLine()?.Trim().ToLower();
 
+                // Hidden debug command
+                if (input == "debug:save_folder")
+                {
+                    Program.OpenSavesFolder();
+                    continue;
+                }
+
                 switch (input)
                 {
                     case "1":
@@ -51,7 +58,7 @@ namespace GOGE.Systems
             Console.WriteLine(Localization.T("Language.German"));
             Console.Write(Localization.T("Menu.ChooseOption"));
 
-            string input = Console.ReadLine()?.Trim().ToLower();
+            string? input = Console.ReadLine()?.Trim().ToLower();
 
             switch (input)
             {

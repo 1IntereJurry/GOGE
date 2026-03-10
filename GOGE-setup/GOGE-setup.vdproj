@@ -22,7 +22,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_25C884C8E091476F8CE86C15A6FB1642"
+        "MsmKey" = "8:_BF39D6771BFB40C88054F45394DBADFF"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -83,6 +83,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
     }
@@ -135,6 +143,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BF39D6771BFB40C88054F45394DBADFF"
+            {
+            "SourcePath" = "8:..\\publish\\GOGE.exe"
+            "TargetName" = "8:GOGE.exe"
+            "Tag" = "8:"
+            "Folder" = "8:_F020ADC557F84CA49B4FC1E55C3967EA"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -165,7 +193,7 @@
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_F020ADC557F84CA49B4FC1E55C3967EA"
             {
-            "DefaultLocation" = "8:[ProgramFilesFolder][Manufacturer]\\[ProductName]"
+            "DefaultLocation" = "8:[ProgramFiles64Folder][Manufacturer]\\[ProductName]"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -192,7 +220,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:GOGE"
         "ProductCode" = "8:{B814E571-5209-46FB-BDA3-9C07ADB46F4B}"
-        "PackageCode" = "8:{F1ECF1EC-DE37-4B00-A947-198C4CB4E079}"
+        "PackageCode" = "8:{D855E519-2EC3-48CF-B3A4-724AEE353B80}"
         "UpgradeCode" = "8:{46CCFB4A-F8B0-489F-A2BA-2AA457B2CCD9}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
@@ -213,7 +241,7 @@
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
-        "TargetPlatform" = "3:0"
+        "TargetPlatform" = "3:1"
         "PreBuildEvent" = "8:"
         "PostBuildEvent" = "8:"
         "RunPostBuildEvent" = "3:0"
@@ -312,7 +340,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_5237D18EFDAE41569BB75965EC5E508F"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_2BEC9117A1BD4BAB835112063BF3421F"
             {
             "Name" = "8:GOGE"
             "Arguments" = "8:"
@@ -320,13 +348,13 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_25C884C8E091476F8CE86C15A6FB1642"
+            "Target" = "8:_BF39D6771BFB40C88054F45394DBADFF"
             "Folder" = "8:_932335016DE745D7992A2143EA4CBDAA"
             "WorkingFolder" = "8:_F020ADC557F84CA49B4FC1E55C3967EA"
             "Icon" = "8:_1CA94217084848B38C2D54D1DB35EDC2"
             "Feature" = "8:"
             }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_67144C9E1CB74801995C3D74926647AC"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_F1355F8E3A624F0D9601CF7BD7851863"
             {
             "Name" = "8:GOGE"
             "Arguments" = "8:"
@@ -334,7 +362,7 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_25C884C8E091476F8CE86C15A6FB1642"
+            "Target" = "8:_BF39D6771BFB40C88054F45394DBADFF"
             "Folder" = "8:_D844AC5062FB4FF8AEE12B46ECC65F1F"
             "WorkingFolder" = "8:_F020ADC557F84CA49B4FC1E55C3967EA"
             "Icon" = "8:_1CA94217084848B38C2D54D1DB35EDC2"
@@ -739,34 +767,6 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_25C884C8E091476F8CE86C15A6FB1642"
-            {
-            "SourcePath" = "8:..\\GOGE\\obj\\Debug\\net8.0\\apphost.exe"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_F020ADC557F84CA49B4FC1E55C3967EA"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:PublishItems"
-            "OutputProjectGuid" = "8:{163E24CC-DD75-4FFE-817B-E202A22B4BF2}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
         }
     }
 }

@@ -10,6 +10,7 @@ namespace GOGE.Systems
         // Use a per-user application data folder so users don't need admin rights
         private static readonly string BaseAppData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "GOGE");
         private static readonly string SaveFolder = Path.Combine(BaseAppData, "Saves");
+        private static readonly string AutoSaveFolder = Path.Combine(SaveFolder, "Auto");
         private const int CURRENT_VERSION = 3;
 
         public class SaveData
@@ -30,8 +31,9 @@ namespace GOGE.Systems
         {
             try
             {
-                if (!Directory.Exists(SaveFolder))
-                    Directory.CreateDirectory(SaveFolder);
+                string targetFolder = isAutoSave ? AutoSaveFolder : SaveFolder;
+                if (!Directory.Exists(targetFolder))
+                    Directory.CreateDirectory(targetFolder);
             }
             catch (Exception ex)
             {
@@ -46,7 +48,8 @@ namespace GOGE.Systems
                 : $"{player.Name} ({player.Class}) - {timestamp}";
 
             string safeName = SanitizeFileName(rawName);
-            string path = Path.Combine(SaveFolder, $"{safeName}.json");
+            string targetFolder2 = isAutoSave ? AutoSaveFolder : SaveFolder;
+            string path = Path.Combine(targetFolder2, $"{safeName}.json");
 
             var data = new SaveData
             {
@@ -214,16 +217,15 @@ namespace GOGE.Systems
         {
             try
             {
-                if (!Directory.Exists(SaveFolder))
-                    Directory.CreateDirectory(SaveFolder);
+                if (!Directory.Exists(AutoSaveFolder))
+                    Directory.CreateDirectory(AutoSaveFolder);
             }
             catch
             {
                 return new List<string>();
             }
 
-            return Directory.GetFiles(SaveFolder, "*.json")
-                .Where(f => Path.GetFileName(f).StartsWith("AUTO -"))
+            return Directory.GetFiles(AutoSaveFolder, "*.json")
                 .OrderByDescending(f => File.GetCreationTime(f))
                 .Take(15)
                 .Select(f => Path.GetFileNameWithoutExtension(f))
@@ -243,7 +245,6 @@ namespace GOGE.Systems
             }
 
             return Directory.GetFiles(SaveFolder, "*.json")
-                .Where(f => !Path.GetFileName(f).StartsWith("AUTO -"))
                 .OrderByDescending(f => File.GetCreationTime(f))
                 .Select(f => Path.GetFileNameWithoutExtension(f))
                 .ToList();
@@ -256,16 +257,15 @@ namespace GOGE.Systems
         {
             try
             {
-                if (!Directory.Exists(SaveFolder))
-                    Directory.CreateDirectory(SaveFolder);
+                if (!Directory.Exists(AutoSaveFolder))
+                    Directory.CreateDirectory(AutoSaveFolder);
             }
             catch
             {
                 return;
             }
 
-            var autoSaveFiles = Directory.GetFiles(SaveFolder, "*.json")
-                .Where(f => Path.GetFileName(f).StartsWith("AUTO -"))
+            var autoSaveFiles = Directory.GetFiles(AutoSaveFolder, "*.json")
                 .OrderByDescending(f => File.GetCreationTime(f))
                 .ToList();
 

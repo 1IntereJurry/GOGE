@@ -1,6 +1,7 @@
 ﻿using GOGE;
 using GOGE.Systems;
 using GOGE.Utils;
+using System.Diagnostics;
 
 class Program
 {
@@ -33,8 +34,31 @@ class Program
             {
                 continue;
             }
-
             break;
+        }
+    }
+
+    // Hidden debug command to open saves folder
+    public static void OpenSavesFolder()
+    {
+        string savesPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "GOGE", "Saves");
+
+        try
+        {
+            if (!Directory.Exists(savesPath))
+                Directory.CreateDirectory(savesPath);
+
+            ProcessStartInfo psi = new ProcessStartInfo
+            {
+                FileName = "explorer.exe",
+                Arguments = savesPath,
+                UseShellExecute = true
+            };
+            Process.Start(psi);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Failed to open saves folder: {ex.Message}");
         }
     }
 }
