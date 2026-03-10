@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GOGE // Terminal_Interface</title>
+    <title>GOGE // System_Interface</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
 </head>
@@ -17,6 +17,7 @@
             <a href="#home">// HOME</a>
             <a href="#install">// INSTALL</a>
             <a href="#developer">// DEVELOPER</a>
+            <a href="https://github.com/1IntereJurry" target="_blank" class="dev-link-nav">@1IntereJurry</a>
         </nav>
     </header>
 
@@ -31,45 +32,78 @@
                 <a href="GOGE-setup.msi" class="cyber-button" download>
                     FETCH_INSTALLER.MSI
                 </a>
-                <p class="file-info">File: GOGE-setup.msi | OS: Windows (x64)</p>
+                <p class="file-info">File: GOGE-setup.msi | OS: Windows (x64) | Size: > 30MB</p>
             </div>
         </section>
+
+        <hr class="divider">
 
         <section id="install">
             <h2 class="section-header">[01] INSTALLATION_PROCEDURE</h2>
             <div class="terminal-card">
-                <div class="terminal-header">setup.exe</div>
+                <div class="terminal-header">setup.exe --instruction-mode</div>
                 <div class="terminal-content">
-                    <p><span class="prompt">></span> Download the <code>GOGE-setup.msi</code> via the button above.</p>
-                    <p><span class="prompt">></span> Run the installer. If Windows SmartScreen blocks it, select 'More Info' -> 'Run Anyway'.</p>
-                    <p><span class="prompt">></span> Follow the Setup Wizard to finalize the deployment.</p>
-                    <p><span class="prompt">></span> Launch the game via the Start Menu or Desktop shortcut.</p>
+                    <p><span class="prompt">></span> Download the <strong>GOGE-setup.msi</strong> above.</p>
+                    <p><span class="prompt">></span> Run the installer. If Windows SmartScreen warns you, select 'More Info' & 'Run Anyway'.</p>
+                    <p><span class="prompt">></span> Follow the Setup Wizard. Required: <strong>.NET 8.0 Runtime</strong>.</p>
+                    <p><span class="prompt">></span> Deployment complete. Launch via Desktop Shortcut.</p>
                 </div>
             </div>
         </section>
 
         <section id="developer">
-            <h2 class="section-header">[02] DEV_DOCUMENTATION</h2>
+            <h2 class="section-header">[02] SOURCE_CONTROL_&_PROFILE</h2>
             <div class="dev-grid">
                 <div class="dev-card">
-                    <h3>Architecture</h3>
-                    <p>Built with .NET 8.0. Utilizes a modular command-pattern to handle console inputs without blocking the main rendering thread.</p>
+                    <h3>Project Repository</h3>
+                    <p>The entire GOGE codebase is open-source. Dive into the C# logic or contribute to the grid.</p>
+                    <a href="https://github.com/1IntereJurry/GOGE" target="_blank" class="cyber-link">> ACCESS_GOGE_REPO</a>
                 </div>
+                
                 <div class="dev-card">
-                    <h3>Core Engine</h3>
-                    <p>Custom-built logic for text-based state management. Designed for educational purposes in C# development.</p>
+                    <h3>The Developer</h3>
+                    <p>Maintained by <strong>1IntereJurry</strong>. Check out my other projects and repositories on GitHub.</p>
+                    <a href="https://github.com/1IntereJurry" target="_blank" class="cyber-link">> VIEW_DEV_PROFILE</a>
                 </div>
+
                 <div class="dev-card">
-                    <h3>Source Control</h3>
-                    <p>The entire codebase is open-source. Contributions via Pull Requests are monitored and encouraged.</p>
-                    <a href="https://github.com/1IntereJurry/GOGE" target="_blank" class="text-link">Access Repository _</a>
+                    <h3>Tech Stack</h3>
+                    <ul class="tech-list">
+                        <li>- Language: C# 12.0</li>
+                        <li>- Framework: .NET 8.0</li>
+                        <li>- Architecture: Modular Command-Pattern</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="specs">
+            <h2 class="section-header">[03] SYSTEM_LOGS_&_FAQ</h2>
+            <div class="grid-2">
+                <div class="terminal-card">
+                    <div class="terminal-header">sys_requirements.log</div>
+                    <table class="specs-table">
+                        <tr><td>OS</td><td>Windows 10 / 11</td></tr>
+                        <tr><td>CPU</td><td>x64 Architecture</td></tr>
+                        <tr><td>NET</td><td>.NET 8.0 Runtime</td></tr>
+                    </table>
+                </div>
+                <div class="faq-box">
+                    <div class="faq-item">
+                        <span class="q">Q: Is it safe?</span>
+                        <p class="a">Yes. It's open source. Windows warns you only because the MSI isn't digitally signed with a paid certificate.</p>
+                    </div>
+                    <div class="faq-item">
+                        <span class="q">Q: Console window too small?</span>
+                        <p class="a">Right-click the title bar -> Properties -> Font to adjust the size.</p>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>TERMINAL_SESSION_ACTIVE // 2026 // 1IntereJurry</p>
+        <p>TERMINAL_SESSION_ENCRYPTED // 2026 // DEVELOPED BY 1INTEREJURRY</p>
     </footer>
 
 </body>
