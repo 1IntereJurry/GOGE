@@ -122,6 +122,59 @@ header {
     .hero-container { flex-direction: column; text-align: center; }
 }
 
+.dual-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.path-card {
+    height: 100%;
+    border-color: #333;
+}
+
+.path-title {
+    font-weight: bold;
+    color: var(--neon-green);
+    margin-bottom: 15px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+}
+
+.dev-border {
+    border-color: var(--accent-blue);
+}
+
+.highlight-green {
+    color: var(--neon-green);
+}
+
+.note-text {
+    font-size: 0.75rem;
+    color: #666;
+    margin-top: 15px;
+    font-style: italic;
+}
+
+/* Footer Styling (wie besprochen) */
+footer {
+    text-align: center;
+    padding: 60px 0 30px;
+    color: #555;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    border-top: 1px solid #111;
+    width: 100%;
+}
+
+/* Mobile Anpassung für das Dual-Grid */
+@media (max-width: 850px) {
+    .dual-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 footer {
     text-align: center;      /* Zentriert den Text horizontal */
     padding: 60px 0 30px;    /* Abstand nach oben und unten */
@@ -131,3 +184,4 @@ footer {
     border-top: 1px solid #111; /* Eine sehr feine Trennlinie zum restlichen Content */
     width: 100%;
 }
+
