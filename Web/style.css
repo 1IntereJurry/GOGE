@@ -56,17 +56,49 @@ header {
 .main-title { font-family: 'Orbitron', sans-serif; font-size: 3.5rem; margin: 0; color: #fff; }
 .subtitle { color: #888; font-size: 1.1rem; margin-bottom: 40px; }
 
-/* GIF / Preview Logic */
-.gif-wrapper { position: relative; cursor: pointer; background: #000; }
-.game-gif { width: 100%; display: block; transition: 0.4s; }
-.game-gif.paused { filter: brightness(0.3) blur(2px); padding: 20px; box-sizing: border-box; }
-.preview-box { border-color: var(--neon-green); }
-
-.play-overlay {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    border: 1px solid var(--neon-green); color: var(--neon-green);
-    padding: 10px 20px; font-family: 'Orbitron', sans-serif; background: rgba(0,0,0,0.6);
+/* GIF / Preview Logic with Static Image */
+.gif-wrapper { 
+    position: relative; 
+    cursor: pointer; 
+    background: #000; 
+    overflow: hidden;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
 }
+
+.game-gif { width: 100%; display: block; transition: 0.4s ease; }
+
+/* Styling für das pausierte Standbild */
+.game-gif.paused { 
+    filter: brightness(0.5) blur(1px); 
+    transform: scale(1.02); /* Leichter Zoom-Effekt */
+}
+
+.preview-box { border-color: var(--neon-green); box-shadow: 0 0 20px rgba(0, 255, 136, 0.1); }
+
+/* Das Pause/Play Overlay */
+.play-overlay {
+    position: absolute; 
+    top: 50%; left: 50%; 
+    transform: translate(-50%, -50%);
+    border: 2px solid var(--neon-green); 
+    color: var(--neon-green);
+    padding: 15px 25px; 
+    font-family: 'Orbitron', sans-serif; 
+    background: rgba(0,0,0,0.7);
+    text-align: center;
+    border-radius: 4px;
+    transition: 0.3s;
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+}
+
+.gif-wrapper:hover .play-overlay {
+    background: rgba(0, 255, 136, 0.1);
+    box-shadow: 0 0 25px rgba(0, 255, 136, 0.5);
+}
+
+.play-icon { font-size: 1.2rem; display: block; margin-bottom: 5px; }
+.play-text { font-size: 0.7rem; letter-spacing: 1px; }
 
 /* Buttons */
 .cyber-button {
