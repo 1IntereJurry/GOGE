@@ -41,11 +41,14 @@
                 <div class="hero-visual">
                     <div class="terminal-card preview-box" id="gif-container" onclick="playGif()">
                         <div class="terminal-header" id="gif-status">status: paused</div>
+                        
                         <div class="gif-wrapper">
                             <img src="GOGE_preview-static.png" id="preview-img" alt="GOGE Preview" class="game-gif paused">
                             
-                            <div class="play-overlay" id="play-btn">
-                                <span class="play-icon">&#9658;</span>
+                            <div class="play-overlay-container" id="play-btn">
+                                <div class="play-circle">
+                                    <span class="play-arrow">&#9658;</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -101,10 +104,10 @@
             const overlay = document.getElementById('play-btn');
             
             if (!container.classList.contains('playing')) {
-                img.src = "GOGE_gameplay-gif.gif"; // Lädt das echte GIF
+                img.src = "GOGE_gameplay-gif.gif"; 
                 img.classList.remove('paused');
                 container.classList.add('playing');
-                overlay.style.display = "none"; // Versteckt das Symbol
+                overlay.style.display = "none"; 
                 status.innerText = "status: executing_preview.gif";
             }
         }
