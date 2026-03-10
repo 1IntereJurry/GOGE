@@ -1,69 +1,182 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GOGE // System_Override</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
+    <title>GOGE - Das C# Konsolenspiel</title>
+    <style>
+        /* Grundlegendes Styling und Dark-Theme */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #121212; 
+            color: #e0e0e0; 
+        }
+        
+        html { 
+            scroll-behavior: smooth; /* Sorgt für weiches Scrollen beim Klick auf die Reiter */
+        }
+
+        /* Navigationsleiste */
+        header { 
+            background-color: #1f1f1f; 
+            padding: 20px 50px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3); 
+        }
+        
+        header h1 { 
+            margin: 0; 
+            font-size: 28px; 
+            color: #00ff88; /* Ein auffälliges "Hacker/Dev" Grün */
+        }
+        
+        nav a { 
+            color: #ffffff; 
+            text-decoration: none; 
+            margin-left: 25px; 
+            font-weight: 500; 
+            transition: color 0.3s; 
+        }
+        
+        nav a:hover { 
+            color: #00ff88; 
+        }
+
+        /* Hero-Bereich (Der große Bereich ganz oben) */
+        .hero { 
+            text-align: center; 
+            padding: 120px 20px; 
+            background: linear-gradient(145deg, #1f1f1f 0%, #0a0a0a 100%); 
+            border-bottom: 1px solid #333; 
+        }
+        
+        .hero h2 { 
+            font-size: 56px; 
+            margin-bottom: 10px; 
+            color: #ffffff;
+        }
+        
+        .hero p { 
+            font-size: 22px; 
+            color: #aaaaaa; 
+            margin-bottom: 40px; 
+        }
+
+        /* Download-Button Styling */
+        .btn { 
+            background-color: #00ff88; 
+            color: #121212; 
+            padding: 15px 40px; 
+            text-decoration: none; 
+            font-size: 20px; 
+            border-radius: 8px; 
+            font-weight: bold; 
+            transition: all 0.3s ease; 
+            display: inline-block; 
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.4);
+        }
+        
+        .btn:hover { 
+            background-color: #00cc6a; 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 255, 136, 0.6);
+        }
+
+        /* Inhalts-Sektionen */
+        section { 
+            padding: 80px 50px; 
+            max-width: 900px; 
+            margin: 0 auto; 
+            line-height: 1.8; 
+            min-height: 50vh;
+        }
+        
+        section h2 { 
+            color: #00ff88; 
+            border-bottom: 2px solid #333; 
+            padding-bottom: 10px; 
+            font-size: 32px;
+        }
+
+        /* Spezielle Box für Entwickler-Infos */
+        .dev-box { 
+            background-color: #1f1f1f; 
+            padding: 25px; 
+            border-radius: 8px; 
+            margin-top: 30px; 
+            border-left: 5px solid #00ff88; 
+        }
+        
+        .dev-box a {
+            color: #00ff88;
+            text-decoration: none;
+        }
+        
+        .dev-box a:hover {
+            text-decoration: underline;
+        }
+
+        /* Fußzeile */
+        footer { 
+            text-align: center; 
+            padding: 30px; 
+            background-color: #0a0a0a; 
+            color: #666; 
+            margin-top: 40px; 
+        }
+    </style>
 </head>
 <body>
 
-    <div class="scanline"></div>
-
     <header>
-        <div class="logo" data-text="GOGE">GOGE</div>
+        <h1>GOGE</h1>
         <nav>
-            <a href="#info">// INFO</a>
-            <a href="#developer">// SOURCE_CODE</a>
-            <a href="https://github.com/1IntereJurry/GOGE/releases/latest/download/GOGE-Installer.exe" class="nav-download">INITIATE_DOWNLOAD</a>
+            <a href="#home">Start</a>
+            <a href="#info">Info</a>
+            <a href="#developer">Developer</a>
         </nav>
     </header>
 
-    <main>
-        <section id="hero">
-            <div class="terminal-window">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="title">system_executable.exe</span>
-                </div>
-                <div class="terminal-body">
-                    <p class="typing">C:\Users\Player> run goge.exe ...</p>
-                    <h2 class="glitch" data-text="WELCOME TO THE GRID">WELCOME TO THE GRID</h2>
-                    <p class="description">GOGE is not just a game. It's a C# driven terminal odyssey. Experience the purity of the console.</p>
-                    <div class="cta-container">
-                        <a href="https://github.com/1IntereJurry/GOGE/releases/latest/download/GOGE-Installer.exe" class="cyber-button">
-                            <span class="button-text">DOWNLOAD NOW</span>
-                            <span class="button-glitch"></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <section id="home" class="hero">
+        <h2>Willkommen bei GOGE</h2>
+        <p>Ein interaktives C# Konsolen-Lernspiel.</p>
+        
+        <a href="https://github.com/1IntereJurry/GOGE/releases/latest/download/GOGE-Installer.exe" class="btn" download>Spiel Herunterladen</a>
+    </section>
 
-        <section id="info" class="content-section">
-            <div class="grid-layout">
-                <div class="card">
-                    <h3>[MISSION_LOG]</h3>
-                    <p>Escape the constraints of modern GUI. Return to the roots of logic and text-based mastery. GOGE challenges your C# understanding in a playful, interactive environment.</p>
-                </div>
-                <div class="card">
-                    <h3>[SYSTEM_SPECS]</h3>
-                    <ul>
-                        <li>> LIGHTWEIGHT CORE</li>
-                        <li>> C# / .NET ARCHITECTURE</li>
-                        <li>> ZERO GPU LOAD</li>
-                        <li>> INFINITE ADVENTURE</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-    </main>
+    <section id="info">
+        <h2>Über das Spiel</h2>
+        <p>GOGE ist ein liebevoll entwickeltes C#-Konsolenspiel, das klassische Textelemente mit modernen Lernkonzepten verbindet. Es wurde entworfen, um Spaß zu machen und gleichzeitig die Faszination der Konsolenprogrammierung zu zeigen.</p>
+        <p><strong>Features:</strong></p>
+        <ul>
+            <li>Klassisches Konsolen-Feeling</li>
+            <li>Spannende Lernmechaniken</li>
+            <li>Leichtgewichtig und schnell zu installieren</li>
+            <li>Komplett in C# geschrieben</li>
+        </ul>
+    </section>
+
+    <section id="developer">
+        <h2>Für Developer</h2>
+        <p>Du interessierst dich für den Code hinter dem Spiel? GOGE ist Open Source und auf GitHub verfügbar. Ich freue mich über Feedback, Bug-Reports oder Pull Requests.</p>
+        
+        <div class="dev-box">
+            <h3>GitHub Repository</h3>
+            <p>Schau dir den Quellcode an und verfolge die Entwicklung:</p>
+            <p>👉 <a href="https://github.com/1IntereJurry/GOGE" target="_blank">github.com/1IntereJurry/GOGE</a></p>
+            <p><br><strong>Tech Stack:</strong> C#, .NET Console Application</p>
+        </div>
+    </section>
 
     <footer>
-        <p>TERMINAL_CONNECTION_ESTABLISHED // 2026 // 1IntereJurry</p>
+        <p>&copy; 2026 1IntereJurry. Alle Rechte vorbehalten.</p>
     </footer>
 
 </body>
