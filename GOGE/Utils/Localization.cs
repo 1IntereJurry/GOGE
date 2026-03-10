@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Reflection;
+using System.Linq;
 
 namespace GOGE.Utils
 {
@@ -46,7 +47,7 @@ namespace GOGE.Utils
                 // try embedded resource (useful for single-file publish or installer packaging)
                 try
                 {
-                    var asm = Assembly.GetExecutingAssembly();
+                    var asm = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
                     var resourceSuffix = $"locales.{fileName}".ToLowerInvariant();
                     var res = asm.GetManifestResourceNames()
                                  .FirstOrDefault(n => n.ToLowerInvariant().EndsWith(resourceSuffix));

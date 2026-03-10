@@ -22,6 +22,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_345B597A6A384445894B3D2EEF96AD71"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3CE9C6912ED240E795F9DEBBB0F89DB8"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_BF39D6771BFB40C88054F45394DBADFF"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -143,6 +155,46 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_345B597A6A384445894B3D2EEF96AD71"
+            {
+            "SourcePath" = "8:..\\publish\\Locales\\en.json"
+            "TargetName" = "8:en.json"
+            "Tag" = "8:"
+            "Folder" = "8:_9427D307C4AA473FB98AD48E09323013"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3CE9C6912ED240E795F9DEBBB0F89DB8"
+            {
+            "SourcePath" = "8:..\\publish\\Locales\\de.json"
+            "TargetName" = "8:de.json"
+            "Tag" = "8:"
+            "Folder" = "8:_9427D307C4AA473FB98AD48E09323013"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BF39D6771BFB40C88054F45394DBADFF"
             {
             "SourcePath" = "8:..\\publish\\GOGE.exe"
@@ -201,6 +253,17 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_9427D307C4AA473FB98AD48E09323013"
+                    {
+                    "Name" = "8:Locales"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_E18199BA05C740BD88915EAC1A8A91E4"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
         }
@@ -219,15 +282,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:GOGE"
-        "ProductCode" = "8:{B814E571-5209-46FB-BDA3-9C07ADB46F4B}"
-        "PackageCode" = "8:{D855E519-2EC3-48CF-B3A4-724AEE353B80}"
+        "ProductCode" = "8:{C46A1C09-6572-4C8C-845A-E48AE91AAC78}"
+        "PackageCode" = "8:{2736D0AB-B27E-447E-AC3E-045B1312FE59}"
         "UpgradeCode" = "8:{46CCFB4A-F8B0-489F-A2BA-2AA457B2CCD9}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:2.3.0"
+        "ProductVersion" = "8:2.4.0"
         "Manufacturer" = "8:1IntereJurry"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/1IntereJurry/GOGE/issues/new"

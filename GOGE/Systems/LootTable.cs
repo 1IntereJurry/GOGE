@@ -1,8 +1,9 @@
 using GOGE.Models;
+using System.Linq;
 
 public static class LootTable
 {
-    private static Random rng = new Random();
+    private static readonly Random rng = Random.Shared;
 
     // -----------------------------
     // 1. Weapons
@@ -86,6 +87,9 @@ public static class LootTable
         new ArmorPiece("Dragonbone Boots", 9, "Epic")
     };
 
+    // cached combined armor pool to avoid recomputing
+    private static readonly List<ArmorPiece> AllArmor = Helmets.Concat(Chestplates).Concat(Pants).Concat(Boots).ToList();
+
     // -----------------------------
     // 3. Potions
     // -----------------------------
@@ -107,9 +111,6 @@ public static class LootTable
         new Potion("Smoke Bomb", StatusEffect.Escape)
     };
 
-    // helper to get combined armor pool
-    private static List<ArmorPiece> AllArmor => Helmets.Concat(Chestplates).Concat(Pants).Concat(Boots).ToList();
-
     // -----------------------------
     // Loot Selection
     // -----------------------------
@@ -120,8 +121,7 @@ public static class LootTable
         if (roll <= 50) return Weapons[rng.Next(Weapons.Count)];
         if (roll <= 85)
         {
-            var pool = AllArmor;
-            return pool[rng.Next(pool.Count)];
+            return AllArmor[rng.Next(AllArmor.Count)];
         }
         return Potions[rng.Next(Potions.Count)];
     }
@@ -160,9 +160,10 @@ public static class LootTable
         if (cat <= 50)
         {
             // Weapon
-            var candidates = Weapons.Where(w => string.Equals(w.Rarity, rarity, StringComparison.OrdinalIgnoreCase)).ToList();
-            if (!candidates.Any()) candidates = Weapons.ToList();
-            var proto = candidates[rng.Next(candidates.Count)];
+            var candidates = Weapons.Where(w => string.Equals(w.Rarity, rarity, StringComparison.OrdinalIgnoreCase));
+            var list = candidates as IList<Weapon> ?? candidates.ToList();
+            if (list.Count == 0) list = Weapons.ToList();
+            var proto = list[rng.Next(list.Count)];
             // scale damage based on enemy level
             int scaled = proto.Damage + Math.Max(0, enemyLevel / 2);
             return new Weapon(proto.Name, scaled, proto.Rarity) { Description = proto.Description };
@@ -170,8 +171,9 @@ public static class LootTable
         else if (cat <= 85)
         {
             // Armor - pick from combined armor pool filtered by rarity
-            var pool = AllArmor.Where(a => string.Equals(a.Rarity, rarity, StringComparison.OrdinalIgnoreCase)).ToList();
-            if (!pool.Any()) pool = AllArmor.ToList();
+            var poolQ = AllArmor.Where(a => string.Equals(a.Rarity, rarity, StringComparison.OrdinalIgnoreCase));
+            var pool = poolQ as IList<ArmorPiece> ?? poolQ.ToList();
+            if (pool.Count == 0) pool = AllArmor.ToList();
             var proto = pool[rng.Next(pool.Count)];
             int scaledArmor = proto.Armor + Math.Max(0, enemyLevel / 3);
             var piece = new ArmorPiece(proto.Name, scaledArmor, proto.Rarity) { Description = proto.Description };

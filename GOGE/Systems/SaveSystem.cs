@@ -2,6 +2,7 @@
 using GOGE.Utils;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Linq;
 
 namespace GOGE.Systems
 {
@@ -11,7 +12,7 @@ namespace GOGE.Systems
         private static readonly string BaseAppData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "GOGE");
         private static readonly string SaveFolder = Path.Combine(BaseAppData, "Saves");
         private static readonly string AutoSaveFolder = Path.Combine(SaveFolder, "Auto");
-        private const int CURRENT_VERSION = 3;
+        private const int CURRENT_VERSION = 4;
 
         public class SaveData
         {
@@ -22,6 +23,19 @@ namespace GOGE.Systems
             public List<string> InventoryItems { get; set; } = new();
             public string? Location { get; set; }
             public DateTime SaveTime { get; set; } = DateTime.Now;
+
+            // Persist equipped items by id (preferred) and name (for compatibility)
+            public string? EquippedWeaponId { get; set; }
+            public string? EquippedHelmetId { get; set; }
+            public string? EquippedChestId { get; set; }
+            public string? EquippedPantsId { get; set; }
+            public string? EquippedBootsId { get; set; }
+
+            public string? EquippedWeaponName { get; set; }
+            public string? EquippedHelmetName { get; set; }
+            public string? EquippedChestName { get; set; }
+            public string? EquippedPantsName { get; set; }
+            public string? EquippedBootsName { get; set; }
         }
 
         // ---------------------------------------------------------
@@ -37,6 +51,7 @@ namespace GOGE.Systems
             }
             catch (Exception ex)
             {
+                Logger.Log(ex);
                 Console.WriteLine("Could not create save folder: " + ex.Message);
                 return;
             }
@@ -57,7 +72,18 @@ namespace GOGE.Systems
                 Player = player,
                 Inventory = inventory,
                 Location = "Unknown",
-                SaveTime = DateTime.Now
+                SaveTime = DateTime.Now,
+                EquippedWeaponId = player.EquippedWeapon?.Id,
+                EquippedHelmetId = player.EquippedHelmet?.Id,
+                EquippedChestId = player.EquippedChestplate?.Id,
+                EquippedPantsId = player.EquippedPants?.Id,
+                EquippedBootsId = player.EquippedBoots?.Id,
+
+                EquippedWeaponName = player.EquippedWeapon?.Name,
+                EquippedHelmetName = player.EquippedHelmet?.Name,
+                EquippedChestName = player.EquippedChestplate?.Name,
+                EquippedPantsName = player.EquippedPants?.Name,
+                EquippedBootsName = player.EquippedBoots?.Name
             };
 
             // serialize inventory items as JSON strings including a 'type' discriminator
@@ -73,11 +99,12 @@ namespace GOGE.Systems
                     node["type"] = typeLabel;
                     data.InventoryItems.Add(node.ToJsonString());
                 }
-                catch
+                catch (Exception ex)
                 {
+                    Logger.Log(ex);
                     try
                     {
-                        var fallback = new System.Text.Json.Nodes.JsonObject { ["type"] = item.GetType().Name, ["name"] = item.Name };
+                        var fallback = new System.Text.Json.Nodes.JsonObject { ["type"] = item.GetType().Name, ["name"] = item.Name, ["id"] = item.Id };
                         data.InventoryItems.Add(fallback.ToJsonString());
                     }
                     catch { }
@@ -97,6 +124,7 @@ namespace GOGE.Systems
             }
             catch (Exception ex)
             {
+                Logger.Log(ex);
                 Console.WriteLine("Failed to save game: " + ex.Message);
                 return;
             }
@@ -132,6 +160,7 @@ namespace GOGE.Systems
             }
             catch (Exception ex)
             {
+                Logger.Log(ex);
                 Console.WriteLine(Localization.TF("Load.ErrorDeserializing", ex.Message));
                 return null;
             }
@@ -156,13 +185,49 @@ namespace GOGE.Systems
                     if (item != null)
                         inv.Add(item);
                 }
-                catch
+                catch (Exception ex)
                 {
+                    Logger.Log(ex);
                     // ignore individual item failures
                 }
             }
 
             data.Inventory = inv;
+
+            // restore equipped items based on ids (preferred) with name fallback
+            try
+            {
+                Character player = data.Player;
+
+                if (!string.IsNullOrEmpty(data.EquippedWeaponId))
+                    player.EquippedWeapon = data.Inventory.Items.FirstOrDefault(i => i.Id == data.EquippedWeaponId) as Weapon;
+                else if (!string.IsNullOrEmpty(data.EquippedWeaponName))
+                    player.EquippedWeapon = data.Inventory.Items.OfType<Weapon>().FirstOrDefault(w => w.Name == data.EquippedWeaponName);
+
+                if (!string.IsNullOrEmpty(data.EquippedHelmetId))
+                    player.EquippedHelmet = data.Inventory.Items.FirstOrDefault(i => i.Id == data.EquippedHelmetId) as ArmorPiece;
+                else if (!string.IsNullOrEmpty(data.EquippedHelmetName))
+                    player.EquippedHelmet = data.Inventory.Items.OfType<ArmorPiece>().FirstOrDefault(a => a.Name == data.EquippedHelmetName);
+
+                if (!string.IsNullOrEmpty(data.EquippedChestId))
+                    player.EquippedChestplate = data.Inventory.Items.FirstOrDefault(i => i.Id == data.EquippedChestId) as ArmorPiece;
+                else if (!string.IsNullOrEmpty(data.EquippedChestName))
+                    player.EquippedChestplate = data.Inventory.Items.OfType<ArmorPiece>().FirstOrDefault(a => a.Name == data.EquippedChestName);
+
+                if (!string.IsNullOrEmpty(data.EquippedPantsId))
+                    player.EquippedPants = data.Inventory.Items.FirstOrDefault(i => i.Id == data.EquippedPantsId) as ArmorPiece;
+                else if (!string.IsNullOrEmpty(data.EquippedPantsName))
+                    player.EquippedPants = data.Inventory.Items.OfType<ArmorPiece>().FirstOrDefault(a => a.Name == data.EquippedPantsName);
+
+                if (!string.IsNullOrEmpty(data.EquippedBootsId))
+                    player.EquippedBoots = data.Inventory.Items.FirstOrDefault(i => i.Id == data.EquippedBootsId) as ArmorPiece;
+                else if (!string.IsNullOrEmpty(data.EquippedBootsName))
+                    player.EquippedBoots = data.Inventory.Items.OfType<ArmorPiece>().FirstOrDefault(a => a.Name == data.EquippedBootsName);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
 
             data.Inventory ??= new InventorySystem();
 
@@ -188,6 +253,12 @@ namespace GOGE.Systems
                 data.Location ??= "Unknown";
                 data.Version = 3;
             }
+
+            if (data.Version < 4)
+            {
+                // new fields added in v4
+                data.Version = 4;
+            }
         }
 
         // ---------------------------------------------------------
@@ -200,8 +271,9 @@ namespace GOGE.Systems
                 if (!Directory.Exists(SaveFolder))
                     Directory.CreateDirectory(SaveFolder);
             }
-            catch
+            catch (Exception ex)
             {
+                Logger.Log(ex);
                 return new List<string>();
             }
 
@@ -220,8 +292,9 @@ namespace GOGE.Systems
                 if (!Directory.Exists(AutoSaveFolder))
                     Directory.CreateDirectory(AutoSaveFolder);
             }
-            catch
+            catch (Exception ex)
             {
+                Logger.Log(ex);
                 return new List<string>();
             }
 
@@ -239,8 +312,9 @@ namespace GOGE.Systems
                 if (!Directory.Exists(SaveFolder))
                     Directory.CreateDirectory(SaveFolder);
             }
-            catch
+            catch (Exception ex)
             {
+                Logger.Log(ex);
                 return new List<string>();
             }
 
@@ -260,8 +334,9 @@ namespace GOGE.Systems
                 if (!Directory.Exists(AutoSaveFolder))
                     Directory.CreateDirectory(AutoSaveFolder);
             }
-            catch
+            catch (Exception ex)
             {
+                Logger.Log(ex);
                 return;
             }
 
@@ -301,8 +376,9 @@ namespace GOGE.Systems
                 if (!Directory.Exists(SaveFolder))
                     Directory.CreateDirectory(SaveFolder);
             }
-            catch
+            catch (Exception ex)
             {
+                Logger.Log(ex);
                 return false;
             }
 

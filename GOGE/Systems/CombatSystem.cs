@@ -152,7 +152,7 @@ namespace GOGE.Systems
         // ---------------------------------------------------------
         private static RunResult TryToRun()
         {
-            int roll = new Random().Next(1, 101); // 1..100
+            int roll = Random.Shared.Next(1, 101); // 1..100
 
             if (roll <= 65)
                 return RunResult.Escaped;

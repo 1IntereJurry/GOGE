@@ -81,14 +81,12 @@ namespace GOGE.Models
                 "is foaming at the mouth"
             };
 
-            Random rng = new Random();
-            return traits[rng.Next(traits.Length)];
+            return traits[Random.Shared.Next(traits.Length)];
         }
 
         private StatusEffect RollStatusEffect()
         {
-            Random rng = new Random();
-            int roll = rng.Next(1, 101);
+            int roll = Random.Shared.Next(1, 101);
 
             return Type switch
             {
@@ -104,19 +102,17 @@ namespace GOGE.Models
             // Always drop gold
             LootTable.Add(new Gold(GoldReward));
 
-            var rng = new Random();
-
             int drops = 0;
             switch (Type)
             {
                 case EnemyType.Boss:
-                    drops = rng.Next(2, 5); // 2-4 items
+                    drops = Random.Shared.Next(2, 5); // 2-4 items
                     break;
                 case EnemyType.Elite:
-                    drops = rng.Next(1, 3); // 1-2 items
+                    drops = Random.Shared.Next(1, 3); // 1-2 items
                     break;
                 default:
-                    drops = rng.Next(0, 2); // 0-1 items
+                    drops = Random.Shared.Next(0, 2); // 0-1 items
                     break;
             }
 

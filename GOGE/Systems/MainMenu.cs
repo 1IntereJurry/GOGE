@@ -19,6 +19,12 @@ namespace GOGE.Systems
                     continue;
                 }
 
+                if (input == "debug:open_log")
+                {
+                    Logger.OpenLog();
+                    continue;
+                }
+
                 switch (input)
                 {
                     case "1":

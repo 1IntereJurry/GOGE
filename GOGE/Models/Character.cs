@@ -200,7 +200,7 @@ namespace GOGE.Models
         {
             int baseDamage = Strength + (EquippedWeapon?.Damage ?? 5);
 
-            bool isCrit = new Random().Next(0, 100) < CritChance;
+            bool isCrit = Random.Shared.Next(0, 100) < CritChance;
 
             if (isCrit)
             {
@@ -217,7 +217,7 @@ namespace GOGE.Models
         public void TakeDamage(int amount)
         {
             int effectiveDodge = Math.Clamp(Dodge, 0, 50);
-            bool dodged = new Random().Next(0, 100) < effectiveDodge;
+            bool dodged = Random.Shared.Next(0, 100) < effectiveDodge;
 
             if (dodged)
             {
