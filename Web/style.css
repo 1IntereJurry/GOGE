@@ -197,31 +197,27 @@ footer {
     width: 100%;
 }
 
+
 @media (max-width: 850px) {
-    /* Verhindert das Abschneiden des Titels */
     .main-title {
-        font-size: 2.5rem !important; /* Deutlich kleiner für Mobile */
-        line-height: 1.1;
+        /* Nutzt 'vw' (Viewport Width), damit die Schrift mit der Bildschirmbreite mitskaliert */
+        font-size: 10vw !important; 
+        
+        /* Erlaubt dem Browser, das Wort SYSTEM_GOGE notfalls zu trennen */
+        overflow-wrap: break-word;
         word-wrap: break-word;
-        margin-bottom: 10px;
-    }
-
-    /* Zentriert den Text-Bereich besser */
-    .hero-text {
-        padding: 0 10px;
-        margin-bottom: 40px;
-    }
-
-    /* Sorgt dafür, dass die Box mit dem Play-Button nicht zu schmal wird */
-    .hero-visual {
+        hyphens: auto;
+        
+        display: block;
         width: 100%;
-        max-width: 400px; /* Begrenzt die Breite auf Handys für bessere Optik */
-        margin: 0 auto;
+        text-align: center;
+        margin: 0 auto 20px auto;
     }
 
-    /* Optional: Den Button etwas kompakter machen */
-    .cyber-button {
-        padding: 12px 20px !important;
-        font-size: 0.9rem !important;
+    /* Falls das Wort immer noch zu lang ist, erzwingen wir hier die Skalierung */
+    @media (max-width: 400px) {
+        .main-title {
+            font-size: 8vw !important;
+        }
     }
 }
