@@ -150,7 +150,7 @@ namespace GOGE.Systems
 
                 Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("U = Use    E = Equip    S = Sell    X = Exit");
+                Console.WriteLine("U = Use    E = Equip    S = Sell    M = Mass Delete    X = Exit"); // Hardcoded
                 Console.ResetColor();
 
                 Console.Write("\n" + Localization.T("Menu.ChooseOption"));
@@ -162,11 +162,23 @@ namespace GOGE.Systems
                 if (actionInput == "X")
                     return;
 
-                if (actionInput != "U" && actionInput != "E" && actionInput != "S")
+                if (actionInput != "U" && actionInput != "E" && actionInput != "S" && actionInput != "M")
                 {
                     Console.WriteLine(Localization.T("Main.InvalidInput"));
                     Pause();
                     continue;
+                }
+
+                if (actionInput == "M")
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("\nMass Delete Mode (Example: 'type:head' or 'rarity:common')"); //hardcoded
+                    Console.Write("Input: "); // hardcoded
+                    Console.ResetColor();
+
+                    string deleteCmd = Console.ReadLine() ?? "";
+                    HandleMassDelete(deleteCmd);
+                    continue; // Refresh
                 }
 
                 Console.Write(Localization.T("Menu.ChooseOption"));
@@ -210,8 +222,8 @@ namespace GOGE.Systems
                     if (duplicates > 1)
                     {
                         Console.WriteLine(Localization.T("Merchant.SellOfferXP"));
-                        Console.WriteLine("1) Sell for gold");
-                        Console.WriteLine("2) Convert to XP (gain half price in XP)");
+                        Console.WriteLine("1) Sell for gold"); // hardcoded
+                        Console.WriteLine("2) Convert to XP (gain half price in XP)"); // hardcoded
                         Console.Write(Localization.T("Menu.ChooseOption"));
                         var choice = (Console.ReadLine() ?? "").Trim();
                         if (choice == "2")
@@ -262,6 +274,46 @@ namespace GOGE.Systems
                 Gold g => Math.Max(1, g.Amount),
                 _ => rarityMultiplier
             };
+        }
+
+        public void HandleMassDelete(string input)
+        {
+            string[] parts = input.Split(':');
+            if (parts.Length < 2)
+            {
+                Console.WriteLine("Format ungültig. Nutze 'prefix:wert' (z.B. type:boots)"); // hardcoded
+                Pause();
+                return;
+            }
+
+            string prefix = parts[0].ToLower().Trim();
+            string value = parts[1].ToLower().Trim();
+
+            int removed = 0;
+
+            switch (prefix)
+            {
+                case "type":
+                    // FIlters by class/slot (e.g. all boots or all helmets)
+                    removed = _items.RemoveAll(i =>
+                        (i is ArmorPiece ap && ap.Slot.ToString().ToLower() == value) ||
+                        (i.GetType().Name.ToLower() == value)
+                    );
+                    break;
+
+                case "rarity":
+                    // Filters by rarity (e.g. all common or all legendary items)
+                    removed = _items.RemoveAll(i => i.Rarity?.ToLower() == value);
+                    break;
+
+                default:
+                    Console.WriteLine($"Unbekannter Filter: {prefix}");
+                    Pause();
+                    return;
+            }
+
+            Console.WriteLine($"{removed} Items gelöscht.");
+            Pause();
         }
     }
 }
